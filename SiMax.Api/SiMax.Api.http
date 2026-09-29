@@ -1,0 +1,58 @@
+### Elimina registrazione di prova
+DELETE https://localhost:7233/api/registrations/4
+
+### Stato torneo
+GET https://localhost:7233/api/registrations/tournament/1/status
+
+### Registrazione in waitlist
+POST https://localhost:7233/api/registrations
+Content-Type: application/json
+
+{
+  "tournamentId": 1,
+  "email": "mario.rossi@test.it",
+  "teamName": "Team Test",
+  "player1FirstName": "Mario",
+  "player1LastName": "Rossi",
+  "player1Phone": "3331234567",
+  "player2FirstName": "Luca",
+  "player2LastName": "Bianchi",
+  "status": "Confirmed"
+}
+
+### Creazione registrazione confermata
+POST https://localhost:7233/api/registrations
+Content-Type: application/json
+X-Api-Key: simax-dev-key-123
+
+{
+  "tournamentId": 1,
+  "email": "mario.rossi@test.it",
+  "teamName": "Team Test",
+  "player1FirstName": "Mario",
+  "player1LastName": "Rossi",
+  "player1Phone": "3331234567",
+  "player2FirstName": "Luca",
+  "player2LastName": "Bianchi",
+  "status": "Confirmed"
+}
+
+### Test registrazione su Azure
+POST https://simax-api-bedpb4drgrhygbey.westeurope-01.azurewebsites.net/api/registrations
+Content-Type: application/json
+X-Api-Key: SiMaxProd-Registrations-2026-Simax1990
+
+{
+  "tournamentId": 1,
+  "email": "test@simax.it",
+  "teamName": "Team Azure Test",
+  "player1FirstName": "Mario",
+  "player1LastName": "Rossi",
+  "player1Phone": "3331234567",
+  "player2FirstName": "Luca",
+  "player2LastName": "Bianchi",
+  "status": "Confirmed"
+}
+
+  ### Test registrazione su Azure
+DELETE https://simax-api-bedpb4drgrhygbey.westeurope-01.azurewebsites.net/api/registrations/1
