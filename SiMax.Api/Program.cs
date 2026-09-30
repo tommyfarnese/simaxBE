@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SiMax.Api.Data;
+using SiMax.Api.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,9 +11,53 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy =>
+    {
+        policy.RequireRole("Admin");
+    });
+});
+
 builder.Services.AddDbContext<SiMaxDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("SiMaxDb")));
+
+builder.Services
+    .AddIdentityCore<IdentityUser>(options =>
+    {
+        options.User.RequireUniqueEmail = true;
+
+        options.Password.RequiredLength = 8;
+        options.Password.RequireDigit = true;
+        options.Password.RequireUppercase = true;
+        options.Password.RequireLowercase = true;
+        options.Password.RequireNonAlphanumeric = true;
+
+        options.Lockout.MaxFailedAccessAttempts = 5;
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+        options.Lockout.AllowedForNewUsers = true;
+    })
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<SiMaxDbContext>()
+    .AddSignInManager();
+
+builder.Services
+    .AddAuthentication(IdentityConstants.ApplicationScheme)
+    .AddCookie(IdentityConstants.ApplicationScheme);
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    options.Cookie.SameSite = SameSiteMode.Lax;
+
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    options.SlidingExpiration = true;
+
+    options.LoginPath = "/admin/account/login";
+    options.AccessDeniedPath = "/admin/account/access-denied";
+});
 
 builder.Services.AddCors(options =>
 {
@@ -36,8 +82,16 @@ app.UseHttpsRedirection();
 
 app.UseCors("SiMaxFrontend");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    await IdentitySeeder.SeedAsync(
+        scope.ServiceProvider,
+        builder.Configuration);
+}
 
 app.Run();

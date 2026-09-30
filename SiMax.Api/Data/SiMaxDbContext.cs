@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SiMax.Api.Models;
 
 namespace SiMax.Api.Data
 {
-    public class SiMaxDbContext : DbContext
+    public class SiMaxDbContext : IdentityDbContext
     {
         public SiMaxDbContext(DbContextOptions<SiMaxDbContext> options)
             : base(options)

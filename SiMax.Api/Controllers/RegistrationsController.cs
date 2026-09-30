@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SiMax.Api.Data;
 using SiMax.Api.Models;
@@ -99,6 +100,7 @@ public class RegistrationsController : ControllerBase
         });
     }
 
+    [Authorize(Policy = "AdminOnly")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteRegistration(int id)
     {
