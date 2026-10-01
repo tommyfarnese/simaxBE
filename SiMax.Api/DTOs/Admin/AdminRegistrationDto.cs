@@ -18,6 +18,8 @@ public class AdminRegistrationDto
     public string Status { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; }
 
+    public int? EarliestMatchSlot { get; set; }
+
     public int AmountDue { get; set; }
     public int AmountPaid { get; set; }
     public int AmountRemaining { get; set; }

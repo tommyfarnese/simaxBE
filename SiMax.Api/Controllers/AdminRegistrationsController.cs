@@ -67,7 +67,7 @@ public class AdminRegistrationsController : ControllerBase
 
                 Status = registration.Status,
                 CreatedAt = registration.CreatedAt,
-
+                EarliestMatchSlot = registration.EarliestMatchSlot,
                 AmountDue = amountDue,
                 AmountPaid = amountPaid,
                 AmountRemaining = amountRemaining,
@@ -150,6 +150,7 @@ public class AdminRegistrationsController : ControllerBase
 
             Status = registration.Status,
             CreatedAt = registration.CreatedAt,
+            EarliestMatchSlot = registration.EarliestMatchSlot,
             AmountDue = amountDue,
             AmountPaid = amountPaid,
             AmountRemaining = amountRemaining,
@@ -223,6 +224,7 @@ public class AdminRegistrationsController : ControllerBase
 
             Status = registration.Status,
             CreatedAt = registration.CreatedAt,
+            EarliestMatchSlot = registration.EarliestMatchSlot,
             AmountDue = amountDue,
             AmountPaid = amountPaid,
             AmountRemaining = amountRemaining,

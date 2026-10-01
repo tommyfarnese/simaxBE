@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SiMax.Api.Data;
 using SiMax.Api.Identity;
+using SiMax.Api.Services;
+using SiMax.Api.Services.Scheduling;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,6 +75,11 @@ builder.Services.AddCors(options =>
             .AllowCredentials();
     });
 });
+
+builder.Services.AddScoped<RoundRobinGenerator>();
+builder.Services.AddScoped<MatchScheduler>();
+builder.Services.AddScoped<FinalPhaseQualificationService>();
+builder.Services.AddScoped<FinalBracketGenerator>();
 
 var app = builder.Build();
 

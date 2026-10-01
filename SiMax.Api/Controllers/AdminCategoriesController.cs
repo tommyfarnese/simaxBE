@@ -41,7 +41,7 @@ public class AdminCategoriesController : ControllerBase
         var name = request.Name.Trim();
 
         var exists = await _db.Categories
-            .AnyAsync(c => c.Name == name);
+            .AnyAsync(c => c.Name.ToLower() == name.ToLower());
 
         if (exists)
         {
@@ -84,7 +84,7 @@ public class AdminCategoriesController : ControllerBase
         var name = request.Name.Trim();
 
         var exists = await _db.Categories
-            .AnyAsync(c => c.Id != id && c.Name == name);
+            .AnyAsync(c => c.Id != id && c.Name.ToLower() == name.ToLower());
 
         if (exists)
         {

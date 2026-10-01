@@ -21,4 +21,6 @@ public class Event
     public int PriceThreeTournaments { get; set; }
 
     public ICollection<Tournament> Tournaments { get; set; } = new List<Tournament>();
+
+    public ICollection<Court> Courts { get; set; } = new List<Court>();
 }

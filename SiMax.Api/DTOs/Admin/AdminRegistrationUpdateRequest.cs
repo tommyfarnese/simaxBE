@@ -30,4 +30,9 @@ public class AdminRegistrationUpdateRequest
     [Required]
     [MaxLength(100)]
     public string Player2LastName { get; set; } = string.Empty;
+
+    [Range(1, 1000)]
+    public int? EarliestMatchSlot { get; set; }
+
+
 }

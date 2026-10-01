@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SiMax.Api.Data;
 
@@ -11,9 +12,11 @@ using SiMax.Api.Data;
 namespace SiMax.Api.Migrations
 {
     [DbContext(typeof(SiMaxDbContext))]
-    partial class SiMaxDbContextModelSnapshot : ModelSnapshot
+    [Migration("20261001101741_AddEarliestMatchSlot")]
+    partial class AddEarliestMatchSlot
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -254,58 +257,6 @@ namespace SiMax.Api.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SiMax.Api.Models.Court", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("EventId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SortOrder")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EventId");
-
-                    b.ToTable("Courts");
-                });
-
-            modelBuilder.Entity("SiMax.Api.Models.CourtAvailability", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CourtId")
-                        .HasColumnType("int");
-
-                    b.Property<TimeSpan>("EndTime")
-                        .HasColumnType("time");
-
-                    b.Property<TimeSpan>("StartTime")
-                        .HasColumnType("time");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourtId");
-
-                    b.ToTable("CourtAvailabilities");
-                });
-
             modelBuilder.Entity("SiMax.Api.Models.Event", b =>
                 {
                     b.Property<int>("Id")
@@ -365,182 +316,6 @@ namespace SiMax.Api.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SiMax.Api.Models.FinalMatch", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("CourtId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("EndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("FinalPhaseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MatchNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoundNumber")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("StartTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Team1RegistrationId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Team1Score")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Team1SourceMatchId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Team2RegistrationId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Team2Score")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Team2SourceMatchId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourtId");
-
-                    b.HasIndex("FinalPhaseId");
-
-                    b.HasIndex("Team1RegistrationId");
-
-                    b.HasIndex("Team1SourceMatchId");
-
-                    b.HasIndex("Team2RegistrationId");
-
-                    b.HasIndex("Team2SourceMatchId");
-
-                    b.ToTable("FinalMatches");
-                });
-
-            modelBuilder.Entity("SiMax.Api.Models.FinalPhase", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("EliminationType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TournamentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TournamentId");
-
-                    b.ToTable("FinalPhases");
-                });
-
-            modelBuilder.Entity("SiMax.Api.Models.FinalPhaseQualification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FinalPhaseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PoolPosition")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RuleType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FinalPhaseId");
-
-                    b.ToTable("FinalPhaseQualifications");
-                });
-
-            modelBuilder.Entity("SiMax.Api.Models.Match", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CourtId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("MatchNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PoolId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Team1RegistrationId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Team1Score")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Team2RegistrationId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Team2Score")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TournamentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourtId");
-
-                    b.HasIndex("PoolId");
-
-                    b.HasIndex("Team1RegistrationId");
-
-                    b.HasIndex("Team2RegistrationId");
-
-                    b.HasIndex("TournamentId");
-
-                    b.ToTable("Matches");
-                });
-
             modelBuilder.Entity("SiMax.Api.Models.Payment", b =>
                 {
                     b.Property<int>("Id")
@@ -571,57 +346,6 @@ namespace SiMax.Api.Migrations
                     b.HasIndex("RegistrationId");
 
                     b.ToTable("Payment");
-                });
-
-            modelBuilder.Entity("SiMax.Api.Models.Pool", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SortOrder")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TournamentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TournamentId");
-
-                    b.ToTable("Pools");
-                });
-
-            modelBuilder.Entity("SiMax.Api.Models.PoolEntry", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("PoolId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Position")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RegistrationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PoolId");
-
-                    b.HasIndex("RegistrationId");
-
-                    b.ToTable("PoolEntries");
                 });
 
             modelBuilder.Entity("SiMax.Api.Models.Registration", b =>
@@ -814,30 +538,6 @@ namespace SiMax.Api.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SiMax.Api.Models.TournamentCourt", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CourtId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TournamentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourtId");
-
-                    b.HasIndex("TournamentId", "CourtId")
-                        .IsUnique();
-
-                    b.ToTable("TournamentCourts");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -889,139 +589,6 @@ namespace SiMax.Api.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SiMax.Api.Models.Court", b =>
-                {
-                    b.HasOne("SiMax.Api.Models.Event", "Event")
-                        .WithMany("Courts")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Event");
-                });
-
-            modelBuilder.Entity("SiMax.Api.Models.CourtAvailability", b =>
-                {
-                    b.HasOne("SiMax.Api.Models.Court", "Court")
-                        .WithMany("Availabilities")
-                        .HasForeignKey("CourtId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Court");
-                });
-
-            modelBuilder.Entity("SiMax.Api.Models.FinalMatch", b =>
-                {
-                    b.HasOne("SiMax.Api.Models.Court", "Court")
-                        .WithMany()
-                        .HasForeignKey("CourtId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("SiMax.Api.Models.FinalPhase", "FinalPhase")
-                        .WithMany()
-                        .HasForeignKey("FinalPhaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SiMax.Api.Models.Registration", "Team1")
-                        .WithMany()
-                        .HasForeignKey("Team1RegistrationId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("SiMax.Api.Models.FinalMatch", "Team1SourceMatch")
-                        .WithMany()
-                        .HasForeignKey("Team1SourceMatchId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("SiMax.Api.Models.Registration", "Team2")
-                        .WithMany()
-                        .HasForeignKey("Team2RegistrationId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("SiMax.Api.Models.FinalMatch", "Team2SourceMatch")
-                        .WithMany()
-                        .HasForeignKey("Team2SourceMatchId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Court");
-
-                    b.Navigation("FinalPhase");
-
-                    b.Navigation("Team1");
-
-                    b.Navigation("Team1SourceMatch");
-
-                    b.Navigation("Team2");
-
-                    b.Navigation("Team2SourceMatch");
-                });
-
-            modelBuilder.Entity("SiMax.Api.Models.FinalPhase", b =>
-                {
-                    b.HasOne("SiMax.Api.Models.Tournament", "Tournament")
-                        .WithMany()
-                        .HasForeignKey("TournamentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Tournament");
-                });
-
-            modelBuilder.Entity("SiMax.Api.Models.FinalPhaseQualification", b =>
-                {
-                    b.HasOne("SiMax.Api.Models.FinalPhase", "FinalPhase")
-                        .WithMany("Qualifications")
-                        .HasForeignKey("FinalPhaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("FinalPhase");
-                });
-
-            modelBuilder.Entity("SiMax.Api.Models.Match", b =>
-                {
-                    b.HasOne("SiMax.Api.Models.Court", "Court")
-                        .WithMany("Matches")
-                        .HasForeignKey("CourtId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SiMax.Api.Models.Pool", "Pool")
-                        .WithMany()
-                        .HasForeignKey("PoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SiMax.Api.Models.Registration", "Team1")
-                        .WithMany()
-                        .HasForeignKey("Team1RegistrationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SiMax.Api.Models.Registration", "Team2")
-                        .WithMany()
-                        .HasForeignKey("Team2RegistrationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SiMax.Api.Models.Tournament", "Tournament")
-                        .WithMany("Matches")
-                        .HasForeignKey("TournamentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Court");
-
-                    b.Navigation("Pool");
-
-                    b.Navigation("Team1");
-
-                    b.Navigation("Team2");
-
-                    b.Navigation("Tournament");
-                });
-
             modelBuilder.Entity("SiMax.Api.Models.Payment", b =>
                 {
                     b.HasOne("SiMax.Api.Models.Registration", "Registration")
@@ -1029,36 +596,6 @@ namespace SiMax.Api.Migrations
                         .HasForeignKey("RegistrationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Registration");
-                });
-
-            modelBuilder.Entity("SiMax.Api.Models.Pool", b =>
-                {
-                    b.HasOne("SiMax.Api.Models.Tournament", "Tournament")
-                        .WithMany("Pools")
-                        .HasForeignKey("TournamentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Tournament");
-                });
-
-            modelBuilder.Entity("SiMax.Api.Models.PoolEntry", b =>
-                {
-                    b.HasOne("SiMax.Api.Models.Pool", "Pool")
-                        .WithMany("Entries")
-                        .HasForeignKey("PoolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SiMax.Api.Models.Registration", "Registration")
-                        .WithMany()
-                        .HasForeignKey("RegistrationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Pool");
 
                     b.Navigation("Registration");
                 });
@@ -1093,68 +630,19 @@ namespace SiMax.Api.Migrations
                     b.Navigation("Event");
                 });
 
-            modelBuilder.Entity("SiMax.Api.Models.TournamentCourt", b =>
-                {
-                    b.HasOne("SiMax.Api.Models.Court", "Court")
-                        .WithMany("TournamentCourts")
-                        .HasForeignKey("CourtId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SiMax.Api.Models.Tournament", "Tournament")
-                        .WithMany("TournamentCourts")
-                        .HasForeignKey("TournamentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Court");
-
-                    b.Navigation("Tournament");
-                });
-
             modelBuilder.Entity("SiMax.Api.Models.Category", b =>
                 {
                     b.Navigation("Tournaments");
                 });
 
-            modelBuilder.Entity("SiMax.Api.Models.Court", b =>
-                {
-                    b.Navigation("Availabilities");
-
-                    b.Navigation("Matches");
-
-                    b.Navigation("TournamentCourts");
-                });
-
             modelBuilder.Entity("SiMax.Api.Models.Event", b =>
                 {
-                    b.Navigation("Courts");
-
                     b.Navigation("Tournaments");
-                });
-
-            modelBuilder.Entity("SiMax.Api.Models.FinalPhase", b =>
-                {
-                    b.Navigation("Qualifications");
-                });
-
-            modelBuilder.Entity("SiMax.Api.Models.Pool", b =>
-                {
-                    b.Navigation("Entries");
                 });
 
             modelBuilder.Entity("SiMax.Api.Models.Registration", b =>
                 {
                     b.Navigation("Payments");
-                });
-
-            modelBuilder.Entity("SiMax.Api.Models.Tournament", b =>
-                {
-                    b.Navigation("Matches");
-
-                    b.Navigation("Pools");
-
-                    b.Navigation("TournamentCourts");
                 });
 #pragma warning restore 612, 618
         }
