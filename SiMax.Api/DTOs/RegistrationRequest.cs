@@ -1,33 +1,39 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace SiMax.Api.Models;
+namespace SiMax.Api.DTOs;
 
-public class Registration
+public class RegistrationRequest
 {
-    public int Id { get; set; }
-
+    [Required]
     public int TournamentId { get; set; }
 
+    [Required]
+    [MaxLength(200)]
     public string Email { get; set; } = string.Empty;
 
+    [Required]
+    [MaxLength(200)]
     public string TeamName { get; set; } = string.Empty;
 
+    [Required]
+    [MaxLength(100)]
     public string Player1FirstName { get; set; } = string.Empty;
 
+    [Required]
+    [MaxLength(100)]
     public string Player1LastName { get; set; } = string.Empty;
 
+    [MaxLength(30)]
     public string Player1Phone { get; set; } = string.Empty;
 
+    [Required]
+    [MaxLength(100)]
     public string Player2FirstName { get; set; } = string.Empty;
 
+    [Required]
+    [MaxLength(100)]
     public string Player2LastName { get; set; } = string.Empty;
 
-    public string Status { get; set; } = "Confirmed";
-
-    public DateTime CreatedAt { get; set; }
-
-    public ICollection<Payment> Payments { get; set; } = new List<Payment>();
-
-    [ForeignKey(nameof(TournamentId))]
-    public Tournament? Tournament { get; set; }
+    [Required]
+    public string Status { get; set; } = string.Empty;
 }

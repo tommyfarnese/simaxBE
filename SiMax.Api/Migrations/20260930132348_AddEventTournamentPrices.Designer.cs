@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SiMax.Api.Data;
 
@@ -11,9 +12,11 @@ using SiMax.Api.Data;
 namespace SiMax.Api.Migrations
 {
     [DbContext(typeof(SiMaxDbContext))]
-    partial class SiMaxDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260930132348_AddEventTournamentPrices")]
+    partial class AddEventTournamentPrices
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -327,9 +330,6 @@ namespace SiMax.Api.Migrations
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PlayerNumber")
-                        .HasColumnType("int");
 
                     b.Property<string>("ReceivedBy")
                         .IsRequired()

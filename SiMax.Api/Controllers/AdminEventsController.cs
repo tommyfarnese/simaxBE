@@ -50,7 +50,10 @@ public class AdminEventsController : ControllerBase
             Location = request.Location.Trim(),
             Address = request.Address.Trim(),
             PeriodLabel = request.PeriodLabel.Trim(),
-            IsActive = request.IsActive
+            IsActive = request.IsActive,
+            PriceOneTournament = request.PriceOneTournament,
+            PriceTwoTournaments = request.PriceTwoTournaments,
+            PriceThreeTournaments = request.PriceThreeTournaments
         };
 
         _context.Events.Add(newEvent);
@@ -65,7 +68,10 @@ public class AdminEventsController : ControllerBase
             Location = newEvent.Location,
             Address = newEvent.Address,
             PeriodLabel = newEvent.PeriodLabel,
-            IsActive = newEvent.IsActive
+            IsActive = newEvent.IsActive,
+            PriceOneTournament = newEvent.PriceOneTournament,
+            PriceTwoTournaments = newEvent.PriceTwoTournaments,
+            PriceThreeTournaments = newEvent.PriceThreeTournaments
         };
 
         return CreatedAtAction(
@@ -93,6 +99,9 @@ public class AdminEventsController : ControllerBase
         existingEvent.Address = request.Address.Trim();
         existingEvent.PeriodLabel = request.PeriodLabel.Trim();
         existingEvent.IsActive = request.IsActive;
+        existingEvent.PriceOneTournament = request.PriceOneTournament;
+        existingEvent.PriceTwoTournaments = request.PriceTwoTournaments;
+        existingEvent.PriceThreeTournaments = request.PriceThreeTournaments;
 
         await _context.SaveChangesAsync();
 
@@ -104,7 +113,10 @@ public class AdminEventsController : ControllerBase
             Location = existingEvent.Location,
             Address = existingEvent.Address,
             PeriodLabel = existingEvent.PeriodLabel,
-            IsActive = existingEvent.IsActive
+            IsActive = existingEvent.IsActive,
+            PriceOneTournament = existingEvent.PriceOneTournament,
+            PriceTwoTournaments = existingEvent.PriceTwoTournaments,
+            PriceThreeTournaments = existingEvent.PriceThreeTournaments
         };
 
         return Ok(result);
@@ -131,6 +143,72 @@ public class AdminEventsController : ControllerBase
         {
             id = existingEvent.Id,
             isActive = existingEvent.IsActive
+        });
+    }
+
+    [HttpPost("{id}/duplicate")]
+    public async Task<ActionResult<AdminEventDto>> Duplicate(int id)
+    {
+        var sourceEvent = await _context.Events
+            .Include(e => e.Tournaments)
+            .FirstOrDefaultAsync(e => e.Id == id);
+
+        if (sourceEvent == null)
+        {
+            return NotFound();
+        }
+
+        var newEvent = new Event
+        {
+            Title = $"{sourceEvent.Title} - Copia",
+            Date = sourceEvent.Date,
+            Location = sourceEvent.Location,
+            Address = sourceEvent.Address,
+            PeriodLabel = sourceEvent.PeriodLabel,
+            IsActive = false,
+            PriceOneTournament = sourceEvent.PriceOneTournament,
+            PriceTwoTournaments = sourceEvent.PriceTwoTournaments,
+            PriceThreeTournaments = sourceEvent.PriceThreeTournaments
+        };
+
+        foreach (var tournament in sourceEvent.Tournaments)
+        {
+            newEvent.Tournaments.Add(new Tournament
+            {
+                CategoryId = tournament.CategoryId,
+                SortOrder = tournament.SortOrder,
+                TabLabel = tournament.TabLabel,
+                Title = tournament.Title,
+                Format = tournament.Format,
+                StartTime = tournament.StartTime,
+                EndTime = tournament.EndTime,
+                Price = tournament.Price,
+                MaxTeams = tournament.MaxTeams,
+                Level = tournament.Level,
+                MinPlayers = tournament.MinPlayers,
+
+                // I nuovi tornei devono avere nuovi Google Form
+                FormUrl = string.Empty,
+                WaitlistFormUrl = string.Empty,
+                GoogleFormId = string.Empty,
+
+                IsActive = true
+            });
+        }
+
+        _context.Events.Add(newEvent);
+
+        await _context.SaveChangesAsync();
+
+        return Ok(new AdminEventDto
+        {
+            Id = newEvent.Id,
+            Title = newEvent.Title,
+            Date = newEvent.Date,
+            Location = newEvent.Location,
+            Address = newEvent.Address,
+            PeriodLabel = newEvent.PeriodLabel,
+            IsActive = newEvent.IsActive
         });
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SiMax.Api.Data;
 
@@ -11,9 +12,11 @@ using SiMax.Api.Data;
 namespace SiMax.Api.Migrations
 {
     [DbContext(typeof(SiMaxDbContext))]
-    partial class SiMaxDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260930130933_AddPayments")]
+    partial class AddPayments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -280,15 +283,6 @@ namespace SiMax.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PriceOneTournament")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PriceThreeTournaments")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PriceTwoTournaments")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -306,9 +300,6 @@ namespace SiMax.Api.Migrations
                             IsActive = true,
                             Location = "PalaUno",
                             PeriodLabel = "Mattina & Pomeriggio",
-                            PriceOneTournament = 0,
-                            PriceThreeTournaments = 0,
-                            PriceTwoTournaments = 0,
                             Title = "Torneo di Fine Estate"
                         });
                 });
@@ -327,9 +318,6 @@ namespace SiMax.Api.Migrations
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PlayerNumber")
-                        .HasColumnType("int");
 
                     b.Property<string>("ReceivedBy")
                         .IsRequired()

@@ -23,4 +23,13 @@ public class AdminEventRequest
     public string PeriodLabel { get; set; } = string.Empty;
 
     public bool IsActive { get; set; } = true;
+
+    [Range(0, 10000)]
+    public int PriceOneTournament { get; set; }
+
+    [Range(0, 10000)]
+    public int PriceTwoTournaments { get; set; }
+
+    [Range(0, 10000)]
+    public int PriceThreeTournaments { get; set; }
 }

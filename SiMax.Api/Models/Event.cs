@@ -16,5 +16,9 @@ public class Event
 
     public bool IsActive { get; set; } = true;
 
+    public int PriceOneTournament { get; set; }
+    public int PriceTwoTournaments { get; set; }
+    public int PriceThreeTournaments { get; set; }
+
     public ICollection<Tournament> Tournaments { get; set; } = new List<Tournament>();
 }

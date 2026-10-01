@@ -26,14 +26,14 @@ Content-Type: application/json
 X-Api-Key: simax-dev-key-123
 
 {
-  "tournamentId": 1,
-  "email": "mario.rossi@test.it",
-  "teamName": "Team Test",
-  "player1FirstName": "Mario",
-  "player1LastName": "Rossi",
-  "player1Phone": "3331234567",
-  "player2FirstName": "Luca",
-  "player2LastName": "Bianchi",
+  "tournamentId": 3,
+  "email": "massimo.rosselli@test.it",
+  "teamName": "Massimo team",
+  "player1FirstName": "Massimo",
+  "player1LastName": "Rosselli",
+  "player1Phone": "3331234321",
+  "player2FirstName": "Silvia",
+  "player2LastName": "Bertolino",
   "status": "Confirmed"
 }
 

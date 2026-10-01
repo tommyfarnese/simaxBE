@@ -15,4 +15,8 @@ public class AdminEventDto
     public string PeriodLabel { get; set; } = string.Empty;
 
     public bool IsActive { get; set; }
+
+    public int PriceOneTournament { get; set; }
+    public int PriceTwoTournaments { get; set; }
+    public int PriceThreeTournaments { get; set; }
 }

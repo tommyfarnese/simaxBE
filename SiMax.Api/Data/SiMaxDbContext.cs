@@ -45,6 +45,12 @@ namespace SiMax.Api.Data
                 .HasForeignKey(r => r.TournamentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Payment>()
+                .HasOne(p => p.Registration)
+                .WithMany(r => r.Payments)
+                .HasForeignKey(p => p.RegistrationId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<Category>().HasData(
                 new Category
                 {
