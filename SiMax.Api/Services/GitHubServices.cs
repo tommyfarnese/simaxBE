@@ -2,7 +2,7 @@
 using System.Text;
 using System.Text.Json;
 
-namespace SiMaxBE.Services;
+namespace SiMax.Api.Services;
 
 public class GitHubService
 {

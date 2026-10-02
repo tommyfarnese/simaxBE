@@ -24,7 +24,11 @@ public class Registration
 
     public string Status { get; set; } = "Confirmed";
 
+    public int? EarliestMatchSlot { get; set; }
+
     public DateTime CreatedAt { get; set; }
+
+    public ICollection<Payment> Payments { get; set; } = new List<Payment>();
 
     [ForeignKey(nameof(TournamentId))]
     public Tournament? Tournament { get; set; }

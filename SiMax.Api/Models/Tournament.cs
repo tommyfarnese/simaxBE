@@ -39,4 +39,11 @@ public class Tournament
     public Event Event { get; set; } = null!;
 
     public Category Category { get; set; } = null!;
+
+    public ICollection<Pool> Pools { get; set; } = new List<Pool>();
+
+    public ICollection<Match> Matches { get; set; } = new List<Match>();
+
+    public ICollection<TournamentCourt> TournamentCourts { get; set; }
+    = new List<TournamentCourt>();
 }

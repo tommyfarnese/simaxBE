@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SiMax.Api.Data;
 using SiMax.Api.Models;
+using SiMax.Api.DTOs;
 
 namespace SiMax.Api.Controllers;
 
@@ -20,8 +22,8 @@ public class RegistrationsController : ControllerBase
 
     [HttpPost]
     public async Task<ActionResult<Registration>> CreateRegistration(
-        Registration registration,
-        [FromHeader(Name = "X-Api-Key")] string? apiKey)
+    RegistrationRequest request,
+    [FromHeader(Name = "X-Api-Key")] string? apiKey)
     {
         var expectedApiKey = _configuration["ApiKeys:Registrations"];
 
@@ -31,21 +33,38 @@ public class RegistrationsController : ControllerBase
         }
 
         var tournament = await _context.Tournaments
-            .FindAsync(registration.TournamentId);
+    .FindAsync(request.TournamentId);
 
         if (tournament == null)
         {
             return BadRequest("Tournament not found.");
         }
 
-        if (registration.Status != "Confirmed" && registration.Status != "Waitlist")
+        if (request.Status != "Confirmed" && request.Status != "Waitlist")
         {
             return BadRequest("Invalid registration status.");
         }
 
-        registration.CreatedAt = DateTime.UtcNow;
+        var registration = new Registration
+        {
+            TournamentId = request.TournamentId,
+            Email = request.Email.Trim(),
+            TeamName = request.TeamName.Trim(),
+
+            Player1FirstName = request.Player1FirstName.Trim(),
+            Player1LastName = request.Player1LastName.Trim(),
+            Player1Phone = request.Player1Phone.Trim(),
+
+            Player2FirstName = request.Player2FirstName.Trim(),
+            Player2LastName = request.Player2LastName.Trim(),
+
+            Status = request.Status,
+            CreatedAt = DateTime.UtcNow
+        };
 
         _context.Registrations.Add(registration);
+
+        await _context.SaveChangesAsync();
 
         await _context.SaveChangesAsync();
 
@@ -55,6 +74,7 @@ public class RegistrationsController : ControllerBase
             registration);
     }
 
+    [Authorize(Policy = "AdminOnly")]
     [HttpGet("{id}")]
     public async Task<ActionResult<Registration>> GetRegistration(int id)
     {
@@ -99,6 +119,7 @@ public class RegistrationsController : ControllerBase
         });
     }
 
+    [Authorize(Policy = "AdminOnly")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteRegistration(int id)
     {

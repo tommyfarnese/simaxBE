@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SiMax.Api.Models;
 
 namespace SiMax.Api.Data
 {
-    public class SiMaxDbContext : DbContext
+    public class SiMaxDbContext : IdentityDbContext
     {
         public SiMaxDbContext(DbContextOptions<SiMaxDbContext> options)
             : base(options)
@@ -17,6 +18,26 @@ namespace SiMax.Api.Data
         public DbSet<Tournament> Tournaments => Set<Tournament>();
 
         public DbSet<Registration> Registrations => Set<Registration>();
+
+        public DbSet<Pool> Pools => Set<Pool>();
+
+        public DbSet<PoolEntry> PoolEntries => Set<PoolEntry>();
+
+        public DbSet<Court> Courts => Set<Court>();
+
+        public DbSet<CourtAvailability> CourtAvailabilities
+            => Set<CourtAvailability>();
+
+        public DbSet<Match> Matches => Set<Match>();
+
+        public DbSet<TournamentCourt> TournamentCourts => Set<TournamentCourt>();
+
+        public DbSet<FinalPhase> FinalPhases => Set<FinalPhase>();
+
+        public DbSet<FinalPhaseQualification> FinalPhaseQualifications
+            => Set<FinalPhaseQualification>();
+
+        public DbSet<FinalMatch> FinalMatches => Set<FinalMatch>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,6 +64,12 @@ namespace SiMax.Api.Data
                 .WithMany()
                 .HasForeignKey(r => r.TournamentId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Payment>()
+                .HasOne(p => p.Registration)
+                .WithMany(r => r.Payments)
+                .HasForeignKey(p => p.RegistrationId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Category>().HasData(
                 new Category
@@ -130,6 +157,139 @@ namespace SiMax.Api.Data
                     WaitlistFormUrl = ""
                 }
             );
+
+            modelBuilder.Entity<Pool>()
+                    .HasOne(p => p.Tournament)
+                    .WithMany(t => t.Pools)
+                    .HasForeignKey(p => p.TournamentId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PoolEntry>()
+                .HasOne(pe => pe.Pool)
+                .WithMany(p => p.Entries)
+                .HasForeignKey(pe => pe.PoolId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PoolEntry>()
+                .HasOne(pe => pe.Registration)
+                .WithMany()
+                .HasForeignKey(pe => pe.RegistrationId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Court>()
+                .HasOne(c => c.Event)
+                .WithMany(e => e.Courts)
+                .HasForeignKey(c => c.EventId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<CourtAvailability>()
+                .HasOne(ca => ca.Court)
+                .WithMany(c => c.Availabilities)
+                .HasForeignKey(ca => ca.CourtId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Match>()
+                .HasOne(m => m.Tournament)
+                .WithMany(t => t.Matches)
+                .HasForeignKey(m => m.TournamentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Match>()
+                .HasOne(m => m.Pool)
+                .WithMany()
+                .HasForeignKey(m => m.PoolId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Match>()
+                .HasOne(m => m.Court)
+                .WithMany(c => c.Matches)
+                .HasForeignKey(m => m.CourtId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Match>()
+                .HasOne(m => m.Team1)
+                .WithMany()
+                .HasForeignKey(m => m.Team1RegistrationId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Match>()
+                .HasOne(m => m.Team2)
+                .WithMany()
+                .HasForeignKey(m => m.Team2RegistrationId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<TournamentCourt>()
+                .HasOne(tc => tc.Tournament)
+                .WithMany(t => t.TournamentCourts)
+                .HasForeignKey(tc => tc.TournamentId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<TournamentCourt>()
+                .HasOne(tc => tc.Court)
+                .WithMany(c => c.TournamentCourts)
+                .HasForeignKey(tc => tc.CourtId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<TournamentCourt>()
+                .HasIndex(tc => new
+                {
+                    tc.TournamentId,
+                    tc.CourtId
+                })
+                .IsUnique();
+
+            modelBuilder.Entity<FinalPhase>()
+                .HasOne(fp => fp.Tournament)
+                .WithMany()
+                .HasForeignKey(fp => fp.TournamentId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<FinalPhaseQualification>()
+                .HasOne(fq => fq.FinalPhase)
+                .WithMany(fp => fp.Qualifications)
+                .HasForeignKey(fq => fq.FinalPhaseId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<FinalPhaseQualification>()
+                .HasIndex(fq => fq.FinalPhaseId);
+
+            modelBuilder.Entity<FinalMatch>()
+                .HasOne(fm => fm.FinalPhase)
+                .WithMany()
+                .HasForeignKey(fm => fm.FinalPhaseId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<FinalMatch>()
+                .HasOne(fm => fm.Court)
+                .WithMany()
+                .HasForeignKey(fm => fm.CourtId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<FinalMatch>()
+                .HasOne(fm => fm.Team1)
+                .WithMany()
+                .HasForeignKey(fm => fm.Team1RegistrationId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<FinalMatch>()
+                .HasOne(fm => fm.Team2)
+                .WithMany()
+                .HasForeignKey(fm => fm.Team2RegistrationId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<FinalMatch>()
+                .HasOne(fm => fm.Team1SourceMatch)
+                .WithMany()
+                .HasForeignKey(fm => fm.Team1SourceMatchId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<FinalMatch>()
+                .HasOne(fm => fm.Team2SourceMatch)
+                .WithMany()
+                .HasForeignKey(fm => fm.Team2SourceMatchId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
+
+
     }
 }

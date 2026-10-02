@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SiMaxBE.Services;
+using SiMax.Api.Services;
 
-namespace SiMaxBE.Controllers;
+namespace SiMax.Api.Controllers;
 
 [ApiController]
 [Route("api/github-test")]

@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SiMax.Api.Data;
-using SiMaxBE.Services;
+using SiMax.Api.Identity;
+using SiMax.Api.Services;
+using SiMax.Api.Services.Scheduling;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,14 @@ builder.Services.AddHttpClient<GitHubService>();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy =>
+    {
+        policy.RequireRole("Admin");
+    });
+});
+
 builder.Services.AddDbContext<SiMaxDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("SiMaxDb"),
@@ -24,16 +35,63 @@ builder.Services.AddDbContext<SiMaxDbContext>(options =>
                 errorNumbersToAdd: null);
         }));
 
+builder.Services
+    .AddIdentityCore<IdentityUser>(options =>
+    {
+        options.User.RequireUniqueEmail = true;
+
+        options.Password.RequiredLength = 8;
+        options.Password.RequireDigit = true;
+        options.Password.RequireUppercase = true;
+        options.Password.RequireLowercase = true;
+        options.Password.RequireNonAlphanumeric = true;
+
+        options.Lockout.MaxFailedAccessAttempts = 5;
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+        options.Lockout.AllowedForNewUsers = true;
+    })
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<SiMaxDbContext>()
+    .AddSignInManager();
+
+builder.Services
+    .AddAuthentication(IdentityConstants.ApplicationScheme)
+    .AddCookie(IdentityConstants.ApplicationScheme);
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    options.Cookie.SameSite = SameSiteMode.None;
+
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    options.SlidingExpiration = true;
+
+    options.LoginPath = "/admin/account/login";
+    options.AccessDeniedPath = "/admin/account/access-denied";
+});
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("SiMaxFrontend", policy =>
     {
         policy
-            .AllowAnyOrigin()
+            .WithOrigins(
+                "http://localhost:5500",
+                "http://127.0.0.1:5500"
+            )
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
+
+builder.Services.AddScoped<RoundRobinGenerator>();
+builder.Services.AddScoped<MatchScheduler>();
+builder.Services.AddScoped<FinalPhaseQualificationService>();
+builder.Services.AddScoped<FinalBracketGenerator>();
+builder.Services.AddScoped<MatchScheduler>();
+builder.Services.AddScoped<FinalMatchScheduler>();
 
 var app = builder.Build();
 
@@ -45,10 +103,21 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.UseCors("SiMaxFrontend");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    await IdentitySeeder.SeedAsync(
+        scope.ServiceProvider,
+        builder.Configuration);
+}
 
 app.Run();
