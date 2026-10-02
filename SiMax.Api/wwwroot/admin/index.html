@@ -231,6 +231,81 @@
     .drag { color: #9aa399; }
     .pool-empty { height: 150px; display: grid; place-items: center; color: var(--muted); font-size: .8rem; text-align: center; padding: 20px; }
 
+    .final-toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; padding: 16px; margin-bottom: 18px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+    .final-toolbar .field { min-width: min(100%, 260px); flex: 1; }
+    .final-layout { display: grid; grid-template-columns: minmax(290px, .8fr) minmax(0, 1.5fr); gap: 18px; align-items: start; }
+    .final-config { padding: 16px; }
+    .final-config-list { display: grid; gap: 12px; margin-top: 14px; }
+    .final-phase-editor { border: 1px solid var(--line); border-radius: 6px; padding: 12px; background: #fbfcfa; }
+    .final-phase-title, .final-rule { display: flex; align-items: center; gap: 8px; }
+    .final-phase-title .control { font-weight: 700; }
+    .final-rule { margin-top: 8px; }
+    .final-rule .control { min-width: 0; padding: 8px; }
+    .final-rule select:first-child { flex: 1.2; }
+    .final-rule select:nth-child(2) { flex: .75; }
+    .final-rule input { width: 70px; flex: 0 0 70px; }
+    .final-config-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .final-config-actions .btn { flex: 1; }
+    .final-workspace { min-width: 0; }
+    .final-phase-strip { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+    .final-phase-strip h2 { margin: 0; font-size: 1.5rem; }
+    .final-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .qualifier-list { display: grid; gap: 0; }
+    .qualifier-row { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid #ebeee9; }
+    .qualifier-row:last-child { border-bottom: 0; }
+    .qualifier-rank { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; color: #0d5e58; background: var(--teal-soft); font-weight: 800; font-size: .78rem; }
+    .qualifier-row strong, .qualifier-row small { display: block; }
+    .qualifier-row small { color: var(--muted); margin-top: 2px; }
+    .qualifier-stats { color: var(--muted); text-align: right; font-size: .75rem; white-space: nowrap; }
+    .bracket-scroll { overflow: visible; }
+    .bracket { display: flex; flex-direction: column; gap: 18px; width: 100%; min-width: 0; padding: 12px; }
+    .bracket-round { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 10px; }
+    .bracket-round h3 { grid-column: 1 / -1; margin: 0; padding: 8px 10px; color: var(--muted); border-bottom: 2px solid var(--yellow); font-size: 1rem; text-transform: uppercase; }
+    .final-match { padding: 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+    .final-match-head { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 10px; color: var(--muted); font-size: .72rem; font-weight: 800; text-transform: uppercase; }
+    .final-team { display: flex; justify-content: space-between; gap: 8px; padding: 8px 0; border-bottom: 1px solid #edf0eb; font-size: .83rem; }
+    .final-team:last-of-type { border-bottom: 0; }
+    .final-team.winner { color: var(--teal); font-weight: 800; }
+    .final-team-score { font-variant-numeric: tabular-nums; font-weight: 800; }
+    .final-match-meta { display: flex; flex-wrap: wrap; gap: 8px 12px; padding-top: 9px; color: var(--muted); font-size: .74rem; }
+    .final-match-controls { display: grid; grid-template-columns: minmax(0, 1fr) minmax(150px, 1fr) auto; gap: 7px; margin-top: 10px; }
+    .final-match-controls .control { min-height: 36px; padding: 6px 8px; font-size: .77rem; }
+    .final-match-controls .btn { min-height: 36px; padding: 6px 9px; }
+    .final-result-controls { display: grid; grid-template-columns: 1fr 1fr auto; gap: 7px; margin-top: 8px; }
+    .final-result-controls .control { min-height: 36px; padding: 6px 8px; }
+    .final-empty { padding: 28px 18px; color: var(--muted); text-align: center; }
+    .pool-toolbar { display: grid; grid-template-columns: minmax(180px, 1.6fr) repeat(3, minmax(120px, .8fr)) auto auto; gap: 10px; align-items: end; padding: 16px; margin-bottom: 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+    .pool-summary { margin-bottom: 14px; color: var(--muted); font-size: .82rem; }
+    .pool-card { min-width: 0; }
+    .pool-name { width: min(100%, 190px); min-height: 34px; border: 1px solid transparent; background: transparent; font-weight: 800; font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; color: var(--ink); }
+    .pool-name:focus { border-color: var(--teal); outline: 0; background: white; }
+    .pool-entry { display: grid; grid-template-columns: 1fr minmax(110px, auto); gap: 8px; align-items: center; padding: 8px; border-bottom: 1px solid #edf0eb; }
+    .pool-entry:last-child { border-bottom: 0; }
+    .pool-entry strong, .pool-entry small { display: block; }
+    .pool-entry small { color: var(--muted); font-size: .72rem; }
+    .pool-entry select { width: auto; min-width: 110px; min-height: 34px; padding: 5px 7px; font-size: .75rem; }
+    .court-admin-layout { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .8fr); gap: 16px; align-items: start; }
+    .court-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 14px; }
+    .court-card { min-width: 0; padding: 14px; border: 1px solid var(--line); border-radius: 6px; background: #fbfcfa; }
+    .court-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+    .court-card h3 { margin: 0; font-size: 1.25rem; }
+    .court-card-actions { display: flex; gap: 5px; }
+    .availability-list { display: grid; gap: 6px; margin: 12px 0; }
+    .availability-row { display: flex; align-items: center; justify-content: space-between; gap: 7px; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: .76rem; }
+    .availability-row:last-child { border-bottom: 0; }
+    .availability-actions { display: flex; gap: 4px; }
+    .availability-actions .btn { width: 30px; min-height: 30px; }
+    .court-assignment { padding: 16px; position: sticky; top: 94px; }
+    .court-checkbox-list { display: grid; gap: 8px; margin: 12px 0; }
+    .court-checkbox { display: flex; align-items: center; gap: 9px; min-height: 38px; padding: 7px 9px; border: 1px solid var(--line); border-radius: 5px; background: white; font-size: .83rem; }
+    .match-list { display: grid; gap: 8px; padding: 12px; }
+    .match-row { display: grid; grid-template-columns: minmax(190px, 1.4fr) minmax(110px, .7fr) minmax(190px, 1.4fr) 76px 76px auto; align-items: center; gap: 8px; padding: 9px; border-bottom: 1px solid var(--line); font-size: .8rem; }
+    .match-row:last-child { border-bottom: 0; }
+    .match-row .control { min-height: 36px; padding: 6px; text-align: center; }
+    .match-team { min-width: 0; }
+    .standings-wrap { overflow-x: auto; }
+    .password-action { width: 40px; }
+
     .court-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
     .court { padding: 18px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
     .court-top { display: flex; justify-content: space-between; align-items: center; }
@@ -284,6 +359,21 @@
       .pool-layout { grid-template-columns: 1fr; }
       .pool-config { position: static; }
       .pool-grid { grid-template-columns: 1fr; }
+      .final-layout { grid-template-columns: 1fr; }
+      .final-config { position: static; }
+      .final-rule { flex-wrap: wrap; }
+      .final-rule select:first-child { min-width: 130px; }
+      .final-match-controls { grid-template-columns: 1fr 1fr; }
+      .final-match-controls .btn { grid-column: 1 / -1; }
+      .pool-toolbar { grid-template-columns: 1fr 1fr; }
+      .pool-toolbar .field:first-child { grid-column: 1 / -1; }
+      .pool-toolbar .btn { width: 100%; }
+      .court-admin-layout { grid-template-columns: 1fr; }
+      .court-assignment { position: static; }
+      .court-list { grid-template-columns: 1fr; }
+      .match-row { grid-template-columns: 1fr 1fr; }
+      .match-team { grid-column: 1 / -1; }
+      .match-row .btn { grid-column: 1 / -1; }
       .court-grid { grid-template-columns: 1fr; }
       .event-row { grid-template-columns: 62px 1fr auto; }
       .event-row .event-meta { display: none; }
@@ -354,6 +444,7 @@
         <button class="nav-item" data-view="registrations"><i data-lucide="users" class="icon"></i> Iscrizioni</button>
         <button class="nav-item" data-view="payments"><i data-lucide="wallet" class="icon"></i> Pagamenti</button>
         <button class="nav-item" data-view="pools"><i data-lucide="network" class="icon"></i> Gironi</button>
+        <button class="nav-item" data-view="finals"><i data-lucide="trophy" class="icon"></i> Fasi finali</button>
         <button class="nav-item" data-view="courts"><i data-lucide="map" class="icon"></i> Campi e partite</button>
         <div class="nav-label" style="margin-top:14px">Sistema</div>
         <button class="nav-item" data-view="audit"><i data-lucide="history" class="icon"></i> Registro attivit&agrave;</button>
@@ -376,6 +467,7 @@
         </div>
         <div class="top-actions">
           <button class="btn btn-ghost icon-btn" type="button" aria-label="Notifiche" title="Notifiche"><i data-lucide="bell" class="icon"></i></button>
+          <button class="btn btn-ghost icon-btn password-action" id="open-password-dialog" type="button" aria-label="Cambia password" title="Cambia password"><i data-lucide="key-round" class="icon"></i></button>
           <button class="btn btn-primary" type="button" data-open-event><i data-lucide="plus" class="icon"></i><span>Nuovo evento</span></button>
         </div>
       </header>
@@ -448,33 +540,71 @@
         </section>
 
         <section class="page" data-page="pools">
-          <div class="page-head"><div><div class="eyebrow">Fase a gironi</div><h1>GENERATORE GIRONI</h1><p>Distribuisci le squadre confermate e prepara il calendario.</p></div><button class="btn btn-dark" id="confirm-pools" disabled><i data-lucide="lock-keyhole" class="icon"></i> Conferma composizione</button></div>
-          <div class="pool-layout">
-            <aside class="panel pool-config">
-              <h2>Configurazione</h2><p>Le squadre vengono lette dalle iscrizioni confermate.</p>
-              <div class="pool-fields">
-                <div class="field"><label for="pool-tournament">Torneo</label><select class="control" id="pool-tournament"><option>2&times;2 MIX &middot; 11 squadre</option><option>2&times;2 Maschile &middot; 8 squadre</option><option>2&times;2 Femminile &middot; 7 squadre</option></select></div>
-                <div class="field"><label for="pool-count">Numero gironi</label><input class="control" id="pool-count" type="number" min="1" max="8" value="3"></div>
-                <div class="field"><label for="teams-per-pool">Squadre per girone</label><input class="control" id="teams-per-pool" type="number" min="2" max="8" value="4"></div>
-                <div class="field"><label for="pool-method">Criterio</label><select class="control" id="pool-method"><option value="balanced">Bilanciato</option><option value="random">Casuale</option><option value="manual">Manuale</option></select></div>
-              </div>
-              <div class="capacity" id="capacity-message"><strong>12 posti</strong><br>11 squadre &middot; 1 posto vuoto</div>
-              <button class="btn btn-primary" id="generate-pools" style="margin-top:14px"><i data-lucide="shuffle" class="icon"></i> Genera anteprima</button>
-            </aside>
-            <div class="pool-workspace">
-              <div class="pool-workspace-head"><h2>Anteprima composizione</h2><button class="btn btn-ghost" id="clear-pools"><i data-lucide="rotate-ccw" class="icon"></i> Azzera</button></div>
-              <div class="pool-grid" id="pool-grid"><div class="panel pool-empty" style="grid-column:1/-1"><div><i data-lucide="network" style="width:34px;height:34px;margin-bottom:10px"></i><br>Imposta i parametri e genera l'anteprima dei gironi.</div></div></div>
+          <div class="page-head"><div><div class="eyebrow">Fase a gironi</div><h1>GIRONI</h1><p>Genera l’anteprima, modifica assegnazioni e conferma la composizione.</p></div></div>
+          <div class="pool-toolbar">
+            <div class="field"><label for="pool-tournament">Torneo</label><select class="control" id="pool-tournament"></select></div>
+            <div class="field"><label for="pool-count">Numero gironi</label><input class="control" id="pool-count" type="number" min="1" max="20" value="3"></div>
+            <div class="field"><label for="teams-per-pool">Squadre per girone</label><input class="control" id="teams-per-pool" type="number" min="1" max="20" value="4"></div>
+            <div class="field"><label for="pool-method">Criterio</label><select class="control" id="pool-method"><option value="Balanced">Bilanciato</option><option value="Random">Casuale</option><option value="Alphabetical">Alfabetico</option></select></div>
+            <button class="btn btn-dark" id="generate-pools" type="button"><i data-lucide="shuffle" class="icon"></i> Anteprima</button>
+            <button class="btn btn-primary" id="confirm-pools" type="button" disabled><i data-lucide="check" class="icon"></i> Conferma</button>
+          </div>
+          <div class="pool-summary" id="capacity-message">Scegli un torneo e genera l’anteprima.</div>
+          <div class="pool-grid" id="pool-grid"><div class="panel pool-empty" style="grid-column:1/-1">L’anteprima dei gironi apparirà qui.</div></div>
+        </section>
+
+        <section class="page" data-page="finals">
+          <div class="page-head"><div><div class="eyebrow">Eliminazione diretta</div><h1>FASI FINALI</h1><p>Configura le qualificazioni, consulta il tabellone e gestisci orari e risultati.</p></div></div>
+          <div class="final-toolbar">
+            <div class="field"><label for="final-tournament">Torneo</label><select class="control" id="final-tournament"></select></div>
+            <button class="btn btn-ghost" id="refresh-finals" type="button" title="Aggiorna"><i data-lucide="refresh-cw" class="icon"></i> Aggiorna</button>
+          </div>
+          <div class="final-layout">
+            <section class="panel final-config">
+              <div class="panel-head" style="padding:0 0 12px;border-bottom:1px solid var(--line)"><div><h2>Configurazione</h2><p>Le regole vengono validate dal backend.</p></div></div>
+              <div id="final-config-list" class="final-config-list"></div>
+              <div class="final-config-actions"><button class="btn btn-ghost" id="add-final-phase" type="button"><i data-lucide="plus" class="icon"></i> Aggiungi fase</button><button class="btn btn-primary" id="save-final-phases" type="button"><i data-lucide="save" class="icon"></i> Salva</button></div>
+            </section>
+            <div class="final-workspace">
+              <div class="final-phase-strip"><h2 id="final-current-title">Tabellone</h2><select class="control" id="final-phase-select" aria-label="Fase selezionata"><option value="">Nessuna fase</option></select></div>
+              <div class="final-actions" style="margin-bottom:12px"><button class="btn btn-dark" id="generate-final-bracket" type="button"><i data-lucide="git-branch" class="icon"></i> Genera tabellone</button><button class="btn btn-ghost" id="schedule-finals" type="button"><i data-lucide="calendar-clock" class="icon"></i> Programma automaticamente</button></div>
+              <section class="panel" style="margin-bottom:14px">
+                <div class="panel-head"><div><h2>Qualificate</h2><p>Classifica calcolata dal backend</p></div><button class="btn btn-ghost icon-btn" id="refresh-qualifiers" type="button" title="Aggiorna qualificate" aria-label="Aggiorna qualificate"><i data-lucide="refresh-cw" class="icon"></i></button></div>
+                <div id="final-qualifiers" class="qualifier-list"><div class="final-empty">Seleziona un torneo e una fase.</div></div>
+              </section>
+              <section class="panel">
+                <div class="panel-head"><div><h2>Tabellone</h2><p>Squadre e avanzamento forniti dalle API</p></div><button class="btn btn-ghost icon-btn" id="refresh-final-matches" type="button" title="Aggiorna partite" aria-label="Aggiorna partite"><i data-lucide="refresh-cw" class="icon"></i></button></div>
+                <div class="bracket-scroll"><div id="final-bracket" class="bracket"><div class="final-empty">Genera il tabellone per visualizzare le partite.</div></div></div>
+              </section>
             </div>
           </div>
         </section>
 
         <section class="page" data-page="courts">
-          <div class="page-head"><div><div class="eyebrow">Logistica</div><h1>CAMPI E PARTITE</h1><p>Disponibilit&agrave; e carico previsto per la giornata.</p></div><button class="btn btn-primary"><i data-lucide="plus" class="icon"></i> Aggiungi campo</button></div>
-          <div class="court-grid">
-            <article class="court"><div class="court-top"><h3>Campo 1</h3><span class="status status-ok">Attivo</span></div><div class="court-time"><i data-lucide="clock-3" class="icon"></i> 09:30 - 18:30</div><div class="court-bar"><span style="width:78%"></span></div><small style="color:var(--muted)">14 partite pianificate &middot; 78%</small></article>
-            <article class="court"><div class="court-top"><h3>Campo 2</h3><span class="status status-ok">Attivo</span></div><div class="court-time"><i data-lucide="clock-3" class="icon"></i> 09:30 - 18:30</div><div class="court-bar"><span style="width:72%"></span></div><small style="color:var(--muted)">13 partite pianificate &middot; 72%</small></article>
-            <article class="court"><div class="court-top"><h3>Campo 3</h3><span class="status status-wait">Pausa 13:00</span></div><div class="court-time"><i data-lucide="clock-3" class="icon"></i> 09:30 - 18:30</div><div class="court-bar"><span style="width:61%;background:var(--yellow)"></span></div><small style="color:var(--muted)">11 partite pianificate &middot; 61%</small></article>
+          <div class="page-head"><div><div class="eyebrow">Logistica</div><h1>CAMPI E PARTITE</h1><p>Gestisci campi, disponibilità, assegnazioni, risultati e classifiche.</p></div></div>
+          <div class="toolbar">
+            <div class="field"><label for="courts-event">Evento</label><select class="control" id="courts-event"></select></div>
+            <div class="field"><label for="courts-tournament">Torneo</label><select class="control" id="courts-tournament"></select></div>
           </div>
+          <div class="court-admin-layout">
+            <section class="panel">
+              <div class="panel-head"><div><h2>Campi evento</h2><p>Disponibilità orarie e stato</p></div><button class="btn btn-primary" id="add-court" type="button"><i data-lucide="plus" class="icon"></i> Aggiungi campo</button></div>
+              <div id="court-list" class="court-list"><div class="final-empty">Seleziona un evento.</div></div>
+            </section>
+            <section class="panel court-assignment">
+              <h2>Campi del torneo</h2><p style="color:var(--muted);font-size:.8rem">Seleziona i campi attivi utilizzabili per questo torneo.</p>
+              <div id="court-assignment-list" class="court-checkbox-list"><div class="final-empty">Seleziona un torneo.</div></div>
+              <button class="btn btn-primary" id="save-tournament-courts" type="button"><i data-lucide="save" class="icon"></i> Salva assegnazione</button>
+            </section>
+          </div>
+          <section class="panel" style="margin-top:16px">
+            <div class="panel-head"><div><h2>Partite dei gironi</h2><p>Calendario generato dal backend; risultati modificabili qui.</p></div><button class="btn btn-dark" id="generate-matches" type="button"><i data-lucide="calendar-plus" class="icon"></i> Genera calendario</button></div>
+            <div id="match-list" class="match-list"><div class="final-empty">Seleziona un torneo per leggere le partite.</div></div>
+          </section>
+          <section class="panel" style="margin-top:16px">
+            <div class="panel-head"><div><h2>Classifiche</h2><p>Calcolate dal backend in base ai risultati conclusi.</p></div><select class="control" id="standings-pool" style="width:auto;min-width:170px"><option value="all">Tutti i gironi</option></select></div>
+            <div id="standings-list" class="standings-wrap"><div class="final-empty">Seleziona un torneo.</div></div>
+          </section>
         </section>
 
         <section class="page" data-page="audit">
@@ -545,11 +675,35 @@
     <div class="panel-head"><div><h2>Pagamenti registrati</h2></div></div><div class="table-wrap"><table><thead><tr><th>Giocatore</th><th>Metodo</th><th>Ricevuto da</th><th>Importo</th><th></th></tr></thead><tbody id="registration-payments"></tbody></table></div>
   </dialog>
 
+  <dialog id="court-dialog">
+    <form id="court-form">
+      <div class="dialog-head"><h2 id="court-dialog-title">Nuovo campo</h2><button class="btn btn-ghost icon-btn" type="button" data-close aria-label="Chiudi"><i data-lucide="x" class="icon"></i></button></div>
+      <div class="dialog-body"><div class="field wide"><label for="court-name">Nome campo</label><input class="control" id="court-name" maxlength="100" required></div><div class="field"><label for="court-order">Ordine</label><input class="control" id="court-order" type="number" min="1" max="100" value="1" required></div><label class="check-field"><input type="checkbox" id="court-active" checked> Campo attivo</label></div>
+      <div class="dialog-actions"><button class="btn btn-ghost" type="button" data-close>Annulla</button><button class="btn btn-primary" type="submit">Salva campo</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="availability-dialog">
+    <form id="availability-form">
+      <div class="dialog-head"><h2 id="availability-dialog-title">Nuova disponibilità</h2><button class="btn btn-ghost icon-btn" type="button" data-close aria-label="Chiudi"><i data-lucide="x" class="icon"></i></button></div>
+      <div class="dialog-body"><div class="field"><label for="availability-start">Dalle</label><input class="control" id="availability-start" type="time" required></div><div class="field"><label for="availability-end">Alle</label><input class="control" id="availability-end" type="time" required></div></div>
+      <div class="dialog-actions"><button class="btn btn-ghost" type="button" data-close>Annulla</button><button class="btn btn-primary" type="submit">Salva disponibilità</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="password-dialog">
+    <form id="password-form">
+      <div class="dialog-head"><h2>Cambia password</h2><button class="btn btn-ghost icon-btn" type="button" data-close aria-label="Chiudi"><i data-lucide="x" class="icon"></i></button></div>
+      <div class="dialog-body"><div class="field wide"><label for="current-password">Password attuale</label><input class="control" id="current-password" type="password" autocomplete="current-password" required></div><div class="field"><label for="new-password">Nuova password</label><input class="control" id="new-password" type="password" autocomplete="new-password" minlength="8" required></div><div class="field"><label for="confirm-password">Conferma password</label><input class="control" id="confirm-password" type="password" autocomplete="new-password" minlength="8" required></div></div>
+      <div class="dialog-actions"><button class="btn btn-ghost" type="button" data-close>Annulla</button><button class="btn btn-primary" type="submit">Aggiorna password</button></div>
+    </form>
+  </dialog>
+
   <div class="toast" id="toast" role="status"><i data-lucide="circle-check" class="icon"></i><span id="toast-message">Operazione completata</span></div>
 
   <script>
     const teamNames = ['Beach Please', 'Block Party', 'Ace Ventura', 'Net Results', 'Sandstorm', 'No Look', 'Set Me Up', 'Dig This', 'Volley Llamas', 'Side Out', 'Top Spin'];
-    const viewLabels = { dashboard: 'Dashboard', events: 'Eventi e tornei', registrations: 'Iscrizioni', payments: 'Pagamenti', pools: 'Gironi', courts: 'Campi e partite', audit: 'Registro attivit\u00E0' };
+    const viewLabels = { dashboard: 'Dashboard', events: 'Eventi e tornei', registrations: 'Iscrizioni', payments: 'Pagamenti', pools: 'Gironi', finals: 'Fasi finali', courts: 'Campi e partite', audit: 'Registro attivit\u00E0' };
 
     const loginScreen = document.getElementById('login-screen');
     const adminApp = document.getElementById('admin-app');
@@ -577,6 +731,9 @@
       document.getElementById('current-view-label').textContent = viewLabels[viewName] || viewName;
       sidebar.classList.remove('open');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (viewName === 'finals' && tournaments.length) loadFinals().catch(error => showToast(error.message));
+      if (viewName === 'pools' && tournaments.length) loadPoolWorkspace().catch(error => showToast(error.message));
+      if (viewName === 'courts' && events.length) loadCourtWorkspace().catch(error => showToast(error.message));
     }
 
     function openPrototype(email, viewName) {
@@ -619,6 +776,20 @@
       document.getElementById('password-toggle').setAttribute('aria-label', show ? 'Nascondi password' : 'Mostra password');
     });
 
+    const passwordDialog = document.getElementById('password-dialog');
+    document.getElementById('open-password-dialog').addEventListener('click', () => passwordDialog.showModal());
+    document.getElementById('password-form').addEventListener('submit', async event => {
+      event.preventDefault();
+      const newPassword = fieldValue('new-password');
+      if (newPassword !== fieldValue('confirm-password')) return showToast('Le password nuove non coincidono.');
+      try {
+        await api('/admin/account/change-password', { method: 'POST', body: { currentPassword: fieldValue('current-password'), newPassword } });
+        passwordDialog.close();
+        event.currentTarget.reset();
+        showToast('Password aggiornata');
+      } catch (error) { showToast(error.message); }
+    });
+
     function showLogin() {
       adminApp.classList.add('hidden');
       loginScreen.classList.remove('hidden');
@@ -649,6 +820,21 @@
     let participantPrices = [];
     let dashboard = { events: [] };
     let activePaymentSummary = null;
+    let finalPhases = [];
+    let finalPools = [];
+    let finalCourts = [];
+    let finalMatches = [];
+    let finalQualifiers = [];
+    let poolDraft = [];
+    let poolDraftIsPreview = false;
+    let eventCourts = [];
+    let selectedTournamentCourtIds = [];
+    let courtAvailabilities = {};
+    let regularMatches = [];
+    let tournamentPools = [];
+    let editingCourtId = null;
+    let editingAvailability = null;
+    let activeAvailabilityCourtId = null;
     const expandedEvents = new Set();
 
     const fieldValue = id => document.getElementById(id).value.trim();
@@ -707,8 +893,433 @@
       const previousTournament = tournamentSelect.value;
       tournamentSelect.innerHTML = '<option value="all">Tutti i tornei</option>' + tournaments.map(t => `<option value="${t.id}">${escapeHtml(t.tabLabel || t.title)}</option>`).join('');
       if (tournaments.some(t => String(t.id) === previousTournament)) tournamentSelect.value = previousTournament;
+      const finalTournamentSelect = document.getElementById('final-tournament');
+      const previousFinalTournament = finalTournamentSelect.value;
+      finalTournamentSelect.innerHTML = tournaments.map(t => `<option value="${t.id}">${escapeHtml(t.tabLabel || t.title)}</option>`).join('') || '<option value="">Nessun torneo</option>';
+      if (tournaments.some(t => String(t.id) === previousFinalTournament)) finalTournamentSelect.value = previousFinalTournament;
+      populatePoolTournamentOptions();
+      populateCourtSelectors();
       await Promise.all([loadRegistrations(), renderDashboard(), loadPayments()]);
+      if (document.querySelector('[data-page="finals"]').classList.contains('active')) await loadFinals();
+      if (document.querySelector('[data-page="pools"]').classList.contains('active')) await loadPoolWorkspace();
+      if (document.querySelector('[data-page="courts"]').classList.contains('active')) await loadCourtWorkspace();
     }
+
+    const selectedFinalTournamentId = () => Number(document.getElementById('final-tournament').value || 0);
+    const selectedFinalPhase = () => finalPhases.find(phase => phase.id === Number(document.getElementById('final-phase-select').value));
+    const finalBasePath = () => `/api/admin/tournaments/${selectedFinalTournamentId()}/final-phases`;
+    const maxFinalPosition = () => Math.max(1, ...finalPools.map(pool => (pool.entries || []).length));
+
+    function renderFinalConfig(phases) {
+      const target = document.getElementById('final-config-list');
+      target.innerHTML = phases.length ? phases.map((phase, phaseIndex) => `
+        <article class="final-phase-editor" data-phase-editor>
+          <div class="final-phase-title"><input class="control" data-phase-name value="${escapeHtml(phase.name || '')}" maxlength="80" aria-label="Nome fase"><button class="btn btn-danger icon-btn" type="button" data-remove-phase="${phaseIndex}" title="Rimuovi fase" aria-label="Rimuovi fase"><i data-lucide="trash-2" class="icon"></i></button></div>
+          <div class="final-rule" style="margin-top:10px"><select class="control" data-elimination-type aria-label="Tipo eliminazione"><option value="SingleElimination" selected>Eliminazione diretta</option></select><span class="status status-ok">${phase.qualifiedTeamsCount ?? ''} squadre</span></div>
+          ${(phase.rules || []).map((rule, ruleIndex) => `<div class="final-rule" data-rule-row><select class="control" data-rule-type aria-label="Tipo qualificazione"><option value="Position" ${rule.ruleType === 'Position' ? 'selected' : ''}>Posizione</option><option value="BestOfPosition" ${rule.ruleType === 'BestOfPosition' ? 'selected' : ''}>Migliori per posizione</option><option value="WorstOfPosition" ${rule.ruleType === 'WorstOfPosition' ? 'selected' : ''}>Peggiori per posizione</option></select><select class="control" data-rule-position aria-label="Posizione girone">${Array.from({ length: maxFinalPosition() }, (_, index) => `<option value="${index + 1}" ${Number(rule.poolPosition) === index + 1 ? 'selected' : ''}>${index + 1}&deg; posto</option>`).join('')}</select><input class="control" data-rule-count type="number" min="1" max="${Math.max(1, finalPools.length)}" value="${rule.count || 1}" aria-label="Numero qualificate" ${rule.ruleType === 'Position' ? 'disabled' : ''}><button class="btn btn-ghost icon-btn" type="button" data-remove-rule="${phaseIndex}:${ruleIndex}" title="Rimuovi regola" aria-label="Rimuovi regola"><i data-lucide="x" class="icon"></i></button></div>`).join('')}
+          <button class="btn btn-ghost" type="button" data-add-rule="${phaseIndex}" style="width:100%;margin-top:9px"><i data-lucide="plus" class="icon"></i> Aggiungi regola</button>
+        </article>`).join('') : '<div class="final-empty">Nessuna fase configurata. Aggiungine una per iniziare.</div>';
+      refreshIcons();
+    }
+
+    async function loadFinals() {
+      const tournamentId = selectedFinalTournamentId();
+      if (!tournamentId) {
+        finalPhases = []; finalPools = []; finalCourts = []; finalMatches = []; finalQualifiers = [];
+        renderFinalConfig([]);
+        document.getElementById('final-phase-select').innerHTML = '<option value="">Nessuna fase</option>';
+        document.getElementById('final-qualifiers').innerHTML = '<div class="final-empty">Seleziona un torneo con fasi configurate.</div>';
+        document.getElementById('final-bracket').innerHTML = '<div class="final-empty">Nessun tabellone disponibile.</div>';
+        return;
+      }
+      const currentPhaseId = document.getElementById('final-phase-select').value;
+      [finalPhases, finalPools, finalCourts] = await Promise.all([
+        api(finalBasePath()), api(`/api/admin/tournaments/${tournamentId}/pools`), api(`/api/admin/tournaments/${tournamentId}/courts`)
+      ]);
+      renderFinalConfig(finalPhases);
+      const phaseSelect = document.getElementById('final-phase-select');
+      phaseSelect.innerHTML = finalPhases.map(phase => `<option value="${phase.id}">${escapeHtml(phase.name)} &middot; ${phase.qualifiedTeamsCount} squadre</option>`).join('') || '<option value="">Nessuna fase configurata</option>';
+      phaseSelect.value = finalPhases.some(phase => String(phase.id) === currentPhaseId) ? currentPhaseId : String(finalPhases[0]?.id || '');
+      await loadFinalPhaseDetails();
+    }
+
+    async function loadFinalPhaseDetails() {
+      const phase = selectedFinalPhase();
+      document.getElementById('final-current-title').textContent = phase ? phase.name : 'Tabellone';
+      if (!phase) {
+        finalMatches = []; finalQualifiers = [];
+        document.getElementById('final-qualifiers').innerHTML = '<div class="final-empty">Salva almeno una fase per vedere le qualificate.</div>';
+        document.getElementById('final-bracket').innerHTML = '<div class="final-empty">Nessun tabellone disponibile.</div>';
+        return;
+      }
+      const path = `${finalBasePath()}/${phase.id}`;
+      const [qualifierResult, matchResult] = await Promise.allSettled([api(`${path}/qualifiers`), api(`${path}/matches`)]);
+      finalQualifiers = qualifierResult.status === 'fulfilled' ? qualifierResult.value : [];
+      finalMatches = matchResult.status === 'fulfilled' ? matchResult.value : [];
+      if (qualifierResult.status === 'rejected') showToast(qualifierResult.reason.message);
+      if (matchResult.status === 'rejected') showToast(matchResult.reason.message);
+      renderFinalQualifiers();
+      renderFinalBracket();
+    }
+
+    function renderFinalQualifiers() {
+      const target = document.getElementById('final-qualifiers');
+      target.innerHTML = finalQualifiers.length ? finalQualifiers.map((team, index) => `<div class="qualifier-row"><span class="qualifier-rank">${index + 1}</span><div><strong>${escapeHtml(team.teamName)}</strong><small>${escapeHtml(team.poolName)} &middot; ${team.position}&deg; posto</small></div><div class="qualifier-stats">${team.wins}V-${team.losses}P<br>${team.pointsFor} PF &middot; ${team.pointDifference > 0 ? '+' : ''}${team.pointDifference}</div></div>`).join('') : '<div class="final-empty">Nessuna squadra qualificata disponibile.</div>';
+    }
+
+    function renderFinalBracket() {
+      const target = document.getElementById('final-bracket');
+      if (!finalMatches.length) {
+        target.innerHTML = '<div class="final-empty">Nessun tabellone generato per questa fase.</div>';
+        return;
+      }
+      const rounds = [...new Set(finalMatches.map(match => match.roundNumber))].sort((a, b) => a - b);
+      const labels = { 1: 'Finale', 2: 'Semifinali', 4: 'Quarti di finale', 8: 'Ottavi di finale' };
+      target.innerHTML = rounds.map(round => {
+        const matches = finalMatches.filter(match => match.roundNumber === round);
+        const label = round === rounds.at(-1) ? 'Finale' : (labels[matches.length] || `Turno ${round}`);
+        return `<section class="bracket-round"><h3>${label}</h3>${matches.map(match => {
+          const source1 = match.team1SourceMatchId ? `Vincente match ${finalMatches.find(source => source.id === match.team1SourceMatchId)?.matchNumber || ''}` : 'In attesa squadra';
+          const source2 = match.team2SourceMatchId ? `Vincente match ${finalMatches.find(source => source.id === match.team2SourceMatchId)?.matchNumber || ''}` : 'In attesa squadra';
+          const team1 = match.team1Name || (match.team1SourceMatchId ? source1 : 'Da definire');
+          const team2 = match.team2Name || (match.team2SourceMatchId ? source2 : 'Da definire');
+          const team1Winner = match.status === 'Completed' && match.team1Score > match.team2Score;
+          const team2Winner = match.status === 'Completed' && match.team2Score > match.team1Score;
+          const courtOptions = `<option value="">Seleziona campo</option>${finalCourts.map(court => `<option value="${court.id}" ${Number(match.courtId) === court.id ? 'selected' : ''}>${escapeHtml(court.name)}</option>`).join('')}`;
+          const statusClass = match.status === 'Completed' ? 'status-ok' : (match.status === 'Cancelled' ? 'status-off' : 'status-wait');
+          return `<article class="final-match" data-match-id="${match.id}"><div class="final-match-head"><span>Match ${match.matchNumber}</span><span class="status ${statusClass}">${escapeHtml(match.status)}</span></div><div class="final-team ${team1Winner ? 'winner' : ''}"><span>${escapeHtml(team1)}</span><span class="final-team-score">${match.team1Score ?? ''}</span></div><div class="final-team ${team2Winner ? 'winner' : ''}"><span>${escapeHtml(team2)}</span><span class="final-team-score">${match.team2Score ?? ''}</span></div><div class="final-match-meta"><span>${escapeHtml(finalCourts.find(court => court.id === match.courtId)?.name || 'Campo da assegnare')}</span><span>${match.startTime ? `${dateTime(match.startTime)}${match.endTime ? ` - ${new Date(match.endTime).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}` : ''}` : 'Orario da definire'}</span></div><div class="final-match-controls"><select class="control" data-match-court aria-label="Campo">${courtOptions || '<option value="">Nessun campo assegnato</option>'}</select><input class="control" data-match-start type="datetime-local" value="${match.startTime ? String(match.startTime).slice(0, 16) : ''}" aria-label="Data e ora inizio"><button class="btn btn-ghost" type="button" data-save-schedule="${match.id}" ${match.status === 'Cancelled' || !finalCourts.length ? 'disabled' : ''}>Salva orario</button></div><div class="final-result-controls"><input class="control" data-score-one type="number" min="0" max="999" value="${match.team1Score ?? ''}" aria-label="Punteggio squadra 1"><input class="control" data-score-two type="number" min="0" max="999" value="${match.team2Score ?? ''}" aria-label="Punteggio squadra 2"><button class="btn btn-primary" type="button" data-save-result="${match.id}" ${match.status === 'Cancelled' || !match.team1RegistrationId || !match.team2RegistrationId ? 'disabled' : ''}>Risultato</button></div></article>`;
+        }).join('')}</section>`;
+      }).join('');
+    }
+
+    function populatePoolTournamentOptions() {
+      const select = document.getElementById('pool-tournament');
+      const previous = select.value;
+      select.innerHTML = tournaments.map(tournament => `<option value="${tournament.id}">${escapeHtml(tournament.tabLabel || tournament.title)}</option>`).join('') || '<option value="">Nessun torneo</option>';
+      if (tournaments.some(tournament => String(tournament.id) === previous)) select.value = previous;
+    }
+
+    function populateCourtSelectors() {
+      const eventSelect = document.getElementById('courts-event');
+      const previousEvent = eventSelect.value;
+      eventSelect.innerHTML = events.map(item => `<option value="${item.id}">${escapeHtml(item.title)}</option>`).join('') || '<option value="">Nessun evento</option>';
+      if (events.some(item => String(item.id) === previousEvent)) eventSelect.value = previousEvent;
+      populateCourtTournamentOptions();
+    }
+
+    function populateCourtTournamentOptions() {
+      const eventId = Number(document.getElementById('courts-event').value || 0);
+      const select = document.getElementById('courts-tournament');
+      const previous = select.value;
+      const options = tournaments.filter(tournament => Number(tournament.eventId) === eventId);
+      select.innerHTML = options.map(tournament => `<option value="${tournament.id}">${escapeHtml(tournament.tabLabel || tournament.title)}</option>`).join('') || '<option value="">Nessun torneo per l’evento</option>';
+      if (options.some(tournament => String(tournament.id) === previous)) select.value = previous;
+    }
+
+    const selectedPoolTournamentId = () => Number(document.getElementById('pool-tournament').value || 0);
+    const selectedCourtsEventId = () => Number(document.getElementById('courts-event').value || 0);
+    const selectedCourtsTournamentId = () => Number(document.getElementById('courts-tournament').value || 0);
+
+    function normalizeSavedPools(pools) {
+      return pools.map(pool => ({
+        id: pool.id,
+        name: pool.name,
+        sortOrder: pool.sortOrder,
+        teams: (pool.entries || []).map(entry => ({
+          registrationId: entry.registrationId,
+          teamName: entry.teamName || entry.registration?.teamName || '',
+          player1FirstName: entry.player1FirstName || entry.registration?.player1FirstName || '',
+          player1LastName: entry.player1LastName || entry.registration?.player1LastName || '',
+          player2FirstName: entry.player2FirstName || entry.registration?.player2FirstName || '',
+          player2LastName: entry.player2LastName || entry.registration?.player2LastName || ''
+        }))
+      }));
+    }
+
+    async function loadPoolWorkspace() {
+      const tournamentId = selectedPoolTournamentId();
+      if (!tournamentId) {
+        poolDraft = [];
+        renderPoolDraft();
+        return;
+      }
+      const savedPools = await api(`/api/admin/tournaments/${tournamentId}/pools`);
+      if (!poolDraftIsPreview || !poolDraft.length) {
+        poolDraft = normalizeSavedPools(savedPools);
+        document.getElementById('pool-count').value = poolDraft.length || 3;
+        document.getElementById('teams-per-pool').value = poolDraft.length ? Math.max(1, ...poolDraft.map(pool => pool.teams.length)) : 4;
+      }
+      document.getElementById('confirm-pools').disabled = !poolDraft.length;
+      updatePoolSummary();
+      renderPoolDraft();
+    }
+
+    function updatePoolSummary(confirmedTeams) {
+      const count = Number(document.getElementById('pool-count').value || 0);
+      const size = Number(document.getElementById('teams-per-pool').value || 0);
+      const confirmedCount = confirmedTeams ?? registrations.filter(registration => Number(registration.tournamentId) === selectedPoolTournamentId() && registration.status === 'Confirmed').length;
+      const capacity = count * size;
+      document.getElementById('capacity-message').textContent = `${confirmedCount} squadre confermate · capienza ${capacity}${capacity > confirmedCount ? ` · ${capacity - confirmedCount} posti liberi` : ''}${poolDraftIsPreview ? ' · Anteprima non confermata' : ''}`;
+    }
+
+    function renderPoolDraft() {
+      const target = document.getElementById('pool-grid');
+      document.getElementById('confirm-pools').disabled = !poolDraft.length;
+      if (!poolDraft.length) {
+        target.innerHTML = '<div class="panel pool-empty" style="grid-column:1/-1">Imposta i parametri e genera un’anteprima dei gironi.</div>';
+        return;
+      }
+      target.innerHTML = poolDraft.map((pool, poolIndex) => `<section class="pool pool-card"><div class="pool-head"><input class="pool-name" data-pool-name="${poolIndex}" value="${escapeHtml(pool.name)}" aria-label="Nome girone"><span>${pool.teams.length} squadre</span></div><div class="pool-teams">${pool.teams.length ? pool.teams.map(team => `<div class="pool-entry"><div><strong>${escapeHtml(team.teamName)}</strong><small>${escapeHtml(`${team.player1FirstName || ''} ${team.player1LastName || ''} · ${team.player2FirstName || ''} ${team.player2LastName || ''}`.trim())}</small></div><select class="control" data-move-team="${team.registrationId}" data-from-pool="${poolIndex}" aria-label="Sposta ${escapeHtml(team.teamName)}">${poolDraft.map((destination, destinationIndex) => `<option value="${destinationIndex}" ${destinationIndex === poolIndex ? 'selected' : ''}>${escapeHtml(destination.name)}</option>`).join('')}</select></div>`).join('') : '<div class="pool-empty">Nessuna squadra assegnata.</div>'}</div></section>`).join('');
+    }
+
+    document.getElementById('pool-tournament').addEventListener('change', () => {
+      poolDraft = [];
+      poolDraftIsPreview = false;
+      loadPoolWorkspace().catch(error => showToast(error.message));
+    });
+    ['pool-count', 'teams-per-pool'].forEach(id => document.getElementById(id).addEventListener('input', () => updatePoolSummary()));
+    document.getElementById('generate-pools').addEventListener('click', async () => {
+      const tournamentId = selectedPoolTournamentId();
+      if (!tournamentId) return showToast('Seleziona un torneo.');
+      try {
+        const result = await api(`/api/admin/tournaments/${tournamentId}/pools/preview`, { method: 'POST', body: { poolCount: Number(document.getElementById('pool-count').value), maxTeamsPerPool: Number(document.getElementById('teams-per-pool').value), criterion: document.getElementById('pool-method').value } });
+        poolDraft = (result.pools || []).map(pool => ({ name: pool.name, sortOrder: pool.sortOrder, teams: pool.teams || [] }));
+        poolDraftIsPreview = true;
+        updatePoolSummary(result.confirmedTeams);
+        renderPoolDraft();
+      } catch (error) { showToast(error.message); }
+    });
+    document.getElementById('pool-grid').addEventListener('change', event => {
+      const nameInput = event.target.closest('[data-pool-name]');
+      if (nameInput) {
+        const pool = poolDraft[Number(nameInput.dataset.poolName)];
+        if (pool) pool.name = nameInput.value.trim();
+        return;
+      }
+      const select = event.target.closest('[data-move-team]');
+      if (!select) return;
+      const fromPool = poolDraft[Number(select.dataset.fromPool)];
+      const destination = poolDraft[Number(select.value)];
+      const teamIndex = fromPool?.teams.findIndex(team => team.registrationId === Number(select.dataset.moveTeam)) ?? -1;
+      if (!fromPool || !destination || teamIndex < 0 || fromPool === destination) return;
+      destination.teams.push(fromPool.teams.splice(teamIndex, 1)[0]);
+      poolDraftIsPreview = true;
+      renderPoolDraft();
+    });
+    document.getElementById('confirm-pools').addEventListener('click', async () => {
+      const tournamentId = selectedPoolTournamentId();
+      if (!tournamentId || !poolDraft.length) return;
+      if (!confirm('Confermare questa composizione? I gironi salvati in precedenza saranno sostituiti.')) return;
+      try {
+        await api(`/api/admin/tournaments/${tournamentId}/pools/confirm`, { method: 'POST', body: { pools: poolDraft.map((pool, index) => ({ name: pool.name.trim(), sortOrder: index + 1, registrationIds: pool.teams.map(team => team.registrationId) })) } });
+        poolDraftIsPreview = false;
+        await loadPoolWorkspace();
+        showToast('Gironi confermati');
+      } catch (error) { showToast(error.message); }
+    });
+
+    function renderCourtList() {
+      const target = document.getElementById('court-list');
+      target.innerHTML = eventCourts.length ? eventCourts.map(court => {
+        const availability = courtAvailabilities[court.id] || [];
+        return `<article class="court-card"><div class="court-card-head"><div><h3>${escapeHtml(court.name)}</h3><span class="status ${court.isActive ? 'status-ok' : 'status-off'}">${court.isActive ? 'Attivo' : 'Disattivato'}</span></div><div class="court-card-actions"><button class="btn btn-ghost icon-btn" type="button" data-edit-court="${court.id}" title="Modifica campo" aria-label="Modifica campo"><i data-lucide="pencil" class="icon"></i></button>${court.isActive ? `<button class="btn btn-danger icon-btn" type="button" data-disable-court="${court.id}" title="Disattiva campo" aria-label="Disattiva campo"><i data-lucide="eye-off" class="icon"></i></button>` : ''}</div></div><div class="availability-list">${availability.length ? availability.map(item => `<div class="availability-row"><span>${escapeHtml(formatTime(item.startTime))} - ${escapeHtml(formatTime(item.endTime))}</span><span class="availability-actions"><button class="btn btn-ghost icon-btn" type="button" data-edit-availability="${item.id}" data-court-id="${court.id}" title="Modifica disponibilità" aria-label="Modifica disponibilità"><i data-lucide="pencil" class="icon"></i></button><button class="btn btn-danger icon-btn" type="button" data-delete-availability="${item.id}" data-court-id="${court.id}" title="Elimina disponibilità" aria-label="Elimina disponibilità"><i data-lucide="trash-2" class="icon"></i></button></span></div>`).join('') : '<small style="color:var(--muted)">Nessuna finestra di disponibilità.</small>'}</div><button class="btn btn-ghost" type="button" data-add-availability="${court.id}"><i data-lucide="clock-3" class="icon"></i> Aggiungi orario</button></article>`;
+      }).join('') : '<div class="final-empty" style="grid-column:1/-1">Nessun campo configurato per questo evento.</div>';
+      refreshIcons();
+    }
+
+    function renderCourtAssignments() {
+      const target = document.getElementById('court-assignment-list');
+      const activeCourts = eventCourts.filter(court => court.isActive);
+      target.innerHTML = activeCourts.length ? activeCourts.map(court => `<label class="court-checkbox"><input type="checkbox" data-court-assignment value="${court.id}" ${selectedTournamentCourtIds.includes(court.id) ? 'checked' : ''}> ${escapeHtml(court.name)}</label>`).join('') : '<div class="final-empty">Crea e attiva un campo per poterlo assegnare.</div>';
+    }
+
+    function renderRegularMatches() {
+      const target = document.getElementById('match-list');
+      target.innerHTML = regularMatches.length ? regularMatches.map(match => `<div class="match-row" data-regular-match="${match.id}"><strong>Partita ${match.matchNumber}<br><small>${escapeHtml(match.poolName)} · ${escapeHtml(match.courtName)} · ${dateTime(match.startTime)}-${new Date(match.endTime).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}</small></strong><span class="match-team">${escapeHtml(match.team1Name)}</span><span class="match-team">${escapeHtml(match.team2Name)}</span><input class="control" data-match-score-one type="number" min="0" max="100" value="${match.team1Score ?? ''}" aria-label="Punteggio ${escapeHtml(match.team1Name)}"><input class="control" data-match-score-two type="number" min="0" max="100" value="${match.team2Score ?? ''}" aria-label="Punteggio ${escapeHtml(match.team2Name)}"><button class="btn btn-primary" type="button" data-save-match-result="${match.id}" ${match.status === 'Cancelled' ? 'disabled' : ''}>${match.status === 'Completed' ? 'Aggiorna' : 'Risultato'}</button></div>`).join('') : '<div class="final-empty">Nessuna partita generata per questo torneo.</div>';
+    }
+
+    function renderStandings(data, selectedPool) {
+      const target = document.getElementById('standings-list');
+      const groups = selectedPool === 'all' ? data : [{ poolId: Number(selectedPool), poolName: tournamentPools.find(pool => pool.id === Number(selectedPool))?.name || 'Girone', standings: data }];
+      target.innerHTML = groups.length ? groups.map(group => `<section style="padding:12px 16px;border-bottom:1px solid var(--line)"><h3 style="margin:0 0 8px;font-size:1.15rem">${escapeHtml(group.poolName)}</h3><div class="table-wrap"><table style="min-width:620px"><thead><tr><th>#</th><th>Squadra</th><th>PG</th><th>V</th><th>P</th><th>PF</th><th>PS</th><th>Diff.</th></tr></thead><tbody>${group.standings.map(row => `<tr><td>${row.position}</td><td><strong>${escapeHtml(row.teamName)}</strong></td><td>${row.matchesPlayed}</td><td>${row.wins}</td><td>${row.losses}</td><td>${row.pointsFor}</td><td>${row.pointsAgainst}</td><td>${row.pointDifference > 0 ? '+' : ''}${row.pointDifference}</td></tr>`).join('') || '<tr><td colspan="8">Nessun risultato concluso.</td></tr>'}</tbody></table></div></section>`).join('') : '<div class="final-empty">Nessuna classifica disponibile.</div>';
+    }
+
+    async function loadStandings() {
+      const tournamentId = selectedCourtsTournamentId();
+      const select = document.getElementById('standings-pool');
+      const selectedPool = select.value || 'all';
+      if (!tournamentId) {
+        document.getElementById('standings-list').innerHTML = '<div class="final-empty">Seleziona un torneo.</div>';
+        return;
+      }
+      const path = selectedPool === 'all'
+        ? `/api/admin/tournaments/${tournamentId}/standings`
+        : `/api/admin/tournaments/${tournamentId}/pools/${selectedPool}/standings`;
+      const standings = await api(path);
+      renderStandings(standings, selectedPool);
+    }
+
+    async function loadTournamentCourtData() {
+      const tournamentId = selectedCourtsTournamentId();
+      const assignmentList = document.getElementById('court-assignment-list');
+      if (!tournamentId) {
+        selectedTournamentCourtIds = [];
+        tournamentPools = [];
+        regularMatches = [];
+        assignmentList.innerHTML = '<div class="final-empty">Seleziona un torneo.</div>';
+        document.getElementById('match-list').innerHTML = '<div class="final-empty">Seleziona un torneo.</div>';
+        document.getElementById('standings-list').innerHTML = '<div class="final-empty">Seleziona un torneo.</div>';
+        document.getElementById('standings-pool').innerHTML = '<option value="all">Tutti i gironi</option>';
+        return;
+      }
+      const [assignedCourts, pools, matches] = await Promise.all([
+        api(`/api/admin/tournaments/${tournamentId}/courts`),
+        api(`/api/admin/tournaments/${tournamentId}/pools`),
+        api(`/api/admin/tournaments/${tournamentId}/matches`)
+      ]);
+      selectedTournamentCourtIds = assignedCourts.map(court => court.id);
+      tournamentPools = normalizeSavedPools(pools);
+      regularMatches = matches;
+      renderCourtAssignments();
+      renderRegularMatches();
+      const standingsPool = document.getElementById('standings-pool');
+      const previousPool = standingsPool.value;
+      standingsPool.innerHTML = '<option value="all">Tutti i gironi</option>' + tournamentPools.map(pool => `<option value="${pool.id}">${escapeHtml(pool.name)}</option>`).join('');
+      if (tournamentPools.some(pool => String(pool.id) === previousPool)) standingsPool.value = previousPool;
+      await loadStandings();
+    }
+
+    async function loadCourtWorkspace() {
+      const eventId = selectedCourtsEventId();
+      if (!eventId) {
+        eventCourts = [];
+        document.getElementById('court-list').innerHTML = '<div class="final-empty">Crea un evento prima di aggiungere campi.</div>';
+        return;
+      }
+      populateCourtTournamentOptions();
+      eventCourts = await api(`/api/admin/events/${eventId}/courts`);
+      const availability = await Promise.all(eventCourts.map(async court => [court.id, await api(`/api/admin/events/${eventId}/courts/${court.id}/availability`)]));
+      courtAvailabilities = Object.fromEntries(availability);
+      renderCourtList();
+      await loadTournamentCourtData();
+    }
+
+    function openCourtDialog(court = null) {
+      editingCourtId = court?.id || null;
+      document.getElementById('court-dialog-title').textContent = court ? 'Modifica campo' : 'Nuovo campo';
+      document.getElementById('court-name').value = court?.name || '';
+      document.getElementById('court-order').value = court?.sortOrder || eventCourts.length + 1;
+      document.getElementById('court-active').checked = court?.isActive ?? true;
+      document.getElementById('court-dialog').showModal();
+    }
+
+    function openAvailabilityDialog(courtId, availability = null) {
+      activeAvailabilityCourtId = courtId;
+      editingAvailability = availability;
+      document.getElementById('availability-dialog-title').textContent = availability ? 'Modifica disponibilità' : 'Nuova disponibilità';
+      document.getElementById('availability-start').value = formatTime(availability?.startTime);
+      document.getElementById('availability-end').value = formatTime(availability?.endTime);
+      document.getElementById('availability-dialog').showModal();
+    }
+
+    document.getElementById('courts-event').addEventListener('change', () => {
+      populateCourtTournamentOptions();
+      loadCourtWorkspace().catch(error => showToast(error.message));
+    });
+    document.getElementById('courts-tournament').addEventListener('change', () => loadTournamentCourtData().catch(error => showToast(error.message)));
+    document.getElementById('standings-pool').addEventListener('change', () => loadStandings().catch(error => showToast(error.message)));
+    document.getElementById('add-court').addEventListener('click', () => openCourtDialog());
+    document.getElementById('court-list').addEventListener('click', async event => {
+      const editButton = event.target.closest('[data-edit-court]');
+      const disableButton = event.target.closest('[data-disable-court]');
+      const addAvailabilityButton = event.target.closest('[data-add-availability]');
+      const editAvailabilityButton = event.target.closest('[data-edit-availability]');
+      const deleteAvailabilityButton = event.target.closest('[data-delete-availability]');
+      try {
+        if (editButton) openCourtDialog(eventCourts.find(court => court.id === Number(editButton.dataset.editCourt)));
+        if (addAvailabilityButton) openAvailabilityDialog(Number(addAvailabilityButton.dataset.addAvailability));
+        if (editAvailabilityButton) {
+          const courtId = Number(editAvailabilityButton.dataset.courtId);
+          const availability = courtAvailabilities[courtId]?.find(item => item.id === Number(editAvailabilityButton.dataset.editAvailability));
+          if (availability) openAvailabilityDialog(courtId, availability);
+        }
+        if (disableButton) {
+          if (!confirm('Disattivare questo campo?')) return;
+          await api(`/api/admin/events/${selectedCourtsEventId()}/courts/${disableButton.dataset.disableCourt}`, { method: 'DELETE' });
+          await loadCourtWorkspace();
+          showToast('Campo disattivato');
+        }
+        if (deleteAvailabilityButton) {
+          const courtId = Number(deleteAvailabilityButton.dataset.courtId);
+          await api(`/api/admin/events/${selectedCourtsEventId()}/courts/${courtId}/availability/${deleteAvailabilityButton.dataset.deleteAvailability}`, { method: 'DELETE' });
+          await loadCourtWorkspace();
+          showToast('Disponibilità eliminata');
+        }
+      } catch (error) { showToast(error.message); }
+    });
+
+    document.getElementById('court-form').addEventListener('submit', async event => {
+      event.preventDefault();
+      const eventId = selectedCourtsEventId();
+      const body = { name: fieldValue('court-name'), sortOrder: Number(fieldValue('court-order')), isActive: document.getElementById('court-active').checked };
+      try {
+        await api(editingCourtId ? `/api/admin/events/${eventId}/courts/${editingCourtId}` : `/api/admin/events/${eventId}/courts`, { method: editingCourtId ? 'PUT' : 'POST', body });
+        document.getElementById('court-dialog').close();
+        await loadCourtWorkspace();
+        showToast(editingCourtId ? 'Campo aggiornato' : 'Campo creato');
+      } catch (error) { showToast(error.message); }
+    });
+
+    document.getElementById('availability-form').addEventListener('submit', async event => {
+      event.preventDefault();
+      const eventId = selectedCourtsEventId();
+      const startTime = fieldValue('availability-start');
+      const endTime = fieldValue('availability-end');
+      const body = { startTime: `${startTime}:00`, endTime: `${endTime}:00` };
+      try {
+        const basePath = `/api/admin/events/${eventId}/courts/${activeAvailabilityCourtId}/availability`;
+        await api(editingAvailability ? `${basePath}/${editingAvailability.id}` : basePath, { method: editingAvailability ? 'PUT' : 'POST', body });
+        document.getElementById('availability-dialog').close();
+        await loadCourtWorkspace();
+        showToast(editingAvailability ? 'Disponibilità aggiornata' : 'Disponibilità creata');
+      } catch (error) { showToast(error.message); }
+    });
+
+    document.getElementById('save-tournament-courts').addEventListener('click', async () => {
+      const tournamentId = selectedCourtsTournamentId();
+      if (!tournamentId) return showToast('Seleziona un torneo.');
+      const courtIds = [...document.querySelectorAll('[data-court-assignment]:checked')].map(input => Number(input.value));
+      try {
+        await api(`/api/admin/tournaments/${tournamentId}/courts`, { method: 'PUT', body: { courtIds } });
+        await loadTournamentCourtData();
+        showToast('Campi assegnati al torneo');
+      } catch (error) { showToast(error.message); }
+    });
+
+    document.getElementById('generate-matches').addEventListener('click', async () => {
+      const tournamentId = selectedCourtsTournamentId();
+      if (!tournamentId) return showToast('Seleziona un torneo.');
+      if (regularMatches.length && !confirm('Rigenerare il calendario? Le partite e i risultati attuali saranno sostituiti.')) return;
+      try {
+        await api(`/api/admin/tournaments/${tournamentId}/matches/generate`, { method: 'POST' });
+        await loadTournamentCourtData();
+        showToast('Calendario generato');
+      } catch (error) { showToast(error.message); }
+    });
+
+    document.getElementById('match-list').addEventListener('click', async event => {
+      const button = event.target.closest('[data-save-match-result]');
+      if (!button) return;
+      const row = button.closest('[data-regular-match]');
+      const scoreOne = row.querySelector('[data-match-score-one]').value;
+      const scoreTwo = row.querySelector('[data-match-score-two]').value;
+      if (scoreOne === '' || scoreTwo === '') return showToast('Inserisci entrambi i punteggi.');
+      try {
+        await api(`/api/admin/tournaments/${selectedCourtsTournamentId()}/matches/${button.dataset.saveMatchResult}/result`, { method: 'PUT', body: { team1Score: Number(scoreOne), team2Score: Number(scoreTwo) } });
+        await loadTournamentCourtData();
+        showToast('Risultato salvato');
+      } catch (error) { showToast(error.message); }
+    });
 
     async function loadRegistrations() {
       registrations = (await Promise.all(tournaments.map(async tournament => {
@@ -1052,6 +1663,110 @@
       } catch (error) {
         showToast(error.message);
       }
+    });
+
+    function readFinalConfig() {
+      return [...document.querySelectorAll('[data-phase-editor]')].map(editor => ({
+        name: editor.querySelector('[data-phase-name]').value.trim(),
+        eliminationType: editor.querySelector('[data-elimination-type]').value,
+        rules: [...editor.querySelectorAll('[data-rule-row]')].map(row => ({
+          ruleType: row.querySelector('[data-rule-type]').value,
+          poolPosition: Number(row.querySelector('[data-rule-position]').value),
+          count: row.querySelector('[data-rule-type]').value === 'Position' ? 1 : Number(row.querySelector('[data-rule-count]').value)
+        }))
+      }));
+    }
+
+    document.getElementById('final-tournament').addEventListener('change', () => loadFinals().catch(error => showToast(error.message)));
+    document.getElementById('final-phase-select').addEventListener('change', () => loadFinalPhaseDetails().catch(error => showToast(error.message)));
+    document.getElementById('refresh-finals').addEventListener('click', () => loadFinals().catch(error => showToast(error.message)));
+    document.getElementById('refresh-qualifiers').addEventListener('click', () => loadFinalPhaseDetails().catch(error => showToast(error.message)));
+    document.getElementById('refresh-final-matches').addEventListener('click', () => loadFinalPhaseDetails().catch(error => showToast(error.message)));
+
+    document.getElementById('add-final-phase').addEventListener('click', () => {
+      const phases = readFinalConfig();
+      phases.push({ name: `Fase ${phases.length + 1}`, eliminationType: 'SingleElimination', rules: [{ ruleType: 'Position', poolPosition: 1, count: 1 }] });
+      renderFinalConfig(phases);
+    });
+
+    document.getElementById('final-config-list').addEventListener('click', event => {
+      const removePhase = event.target.closest('[data-remove-phase]');
+      const addRule = event.target.closest('[data-add-rule]');
+      const removeRule = event.target.closest('[data-remove-rule]');
+      const phases = readFinalConfig();
+      if (removePhase) phases.splice(Number(removePhase.dataset.removePhase), 1);
+      if (addRule) {
+        const phase = phases[Number(addRule.dataset.addRule)];
+        if (phase) {
+          const usedPositions = new Set(phase.rules.map(rule => rule.poolPosition));
+          const nextPosition = Array.from({ length: maxFinalPosition() }, (_, index) => index + 1).find(position => !usedPositions.has(position)) || 1;
+          phase.rules.push({ ruleType: 'Position', poolPosition: nextPosition, count: 1 });
+        }
+      }
+      if (removeRule) {
+        const [phaseIndex, ruleIndex] = removeRule.dataset.removeRule.split(':').map(Number);
+        phases[phaseIndex]?.rules.splice(ruleIndex, 1);
+      }
+      if (removePhase || addRule || removeRule) renderFinalConfig(phases);
+    });
+
+    document.getElementById('final-config-list').addEventListener('change', event => {
+      const select = event.target.closest('[data-rule-type]');
+      if (select) select.closest('[data-rule-row]').querySelector('[data-rule-count]').disabled = select.value === 'Position';
+    });
+
+    document.getElementById('save-final-phases').addEventListener('click', async () => {
+      const phases = readFinalConfig();
+      try {
+        await api(finalBasePath(), { method: 'PUT', body: { phases } });
+        await loadFinals();
+        showToast('Configurazione fasi salvata');
+      } catch (error) { showToast(error.message); }
+    });
+
+    document.getElementById('generate-final-bracket').addEventListener('click', async () => {
+      const phase = selectedFinalPhase();
+      if (!phase) return showToast('Seleziona una fase configurata.');
+      if (finalMatches.length && !confirm('Generare di nuovo il tabellone? Le partite e la programmazione attuali saranno sostituite.')) return;
+      try {
+        await api(`${finalBasePath()}/${phase.id}/generate`, { method: 'POST' });
+        await loadFinalPhaseDetails();
+        showToast('Tabellone generato');
+      } catch (error) { showToast(error.message); }
+    });
+
+    document.getElementById('schedule-finals').addEventListener('click', async () => {
+      const phase = selectedFinalPhase();
+      if (!phase) return showToast('Seleziona una fase configurata.');
+      try {
+        await api(`${finalBasePath()}/${phase.id}/schedule`, { method: 'POST' });
+        await loadFinalPhaseDetails();
+        showToast('Partite programmate');
+      } catch (error) { showToast(error.message); }
+    });
+
+    document.getElementById('final-bracket').addEventListener('click', async event => {
+      const scheduleButton = event.target.closest('[data-save-schedule]');
+      const resultButton = event.target.closest('[data-save-result]');
+      const phase = selectedFinalPhase();
+      if ((!scheduleButton && !resultButton) || !phase) return;
+      const matchElement = event.target.closest('[data-match-id]');
+      const matchId = scheduleButton ? scheduleButton.dataset.saveSchedule : resultButton.dataset.saveResult;
+      try {
+        if (scheduleButton) {
+          const courtId = Number(matchElement.querySelector('[data-match-court]').value);
+          const startTime = matchElement.querySelector('[data-match-start]').value;
+          if (!courtId || !startTime) return showToast('Seleziona campo e data/ora di inizio.');
+          await api(`${finalBasePath()}/${phase.id}/matches/${matchId}/schedule`, { method: 'PUT', body: { courtId, startTime: `${startTime}:00` } });
+        } else {
+          const team1Score = Number(matchElement.querySelector('[data-score-one]').value);
+          const team2Score = Number(matchElement.querySelector('[data-score-two]').value);
+          if (matchElement.querySelector('[data-score-one]').value === '' || matchElement.querySelector('[data-score-two]').value === '') return showToast('Inserisci entrambi i punteggi.');
+          await api(`${finalBasePath()}/${phase.id}/matches/${matchId}/result`, { method: 'PUT', body: { team1Score, team2Score } });
+        }
+        await loadFinalPhaseDetails();
+        showToast(scheduleButton ? 'Orario aggiornato' : 'Risultato salvato');
+      } catch (error) { showToast(error.message); }
     });
 
     const paymentDialog = document.getElementById('payment-dialog');

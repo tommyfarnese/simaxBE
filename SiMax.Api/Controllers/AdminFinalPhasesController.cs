@@ -613,4 +613,374 @@ public class AdminFinalPhasesController : ControllerBase
             Team2SourceMatchId = match.Team2SourceMatchId
         });
     }
+
+    // GET: /api/admin/tournaments/{tournamentId}/final-phases/{phaseId}/matches
+    [HttpGet("{phaseId}/matches")]
+    public async Task<ActionResult<List<FinalMatchDto>>> GetFinalMatches(
+        int tournamentId,
+        int phaseId)
+    {
+        var phaseExists = await _db.FinalPhases
+            .AnyAsync(fp =>
+                fp.Id == phaseId &&
+                fp.TournamentId == tournamentId);
+
+        if (!phaseExists)
+            return NotFound("Final phase not found.");
+
+        var matches = await _db.FinalMatches
+            .Where(m => m.FinalPhaseId == phaseId)
+            .Include(m => m.Team1)
+            .Include(m => m.Team2)
+            .Include(m => m.Court)
+            .OrderBy(m => m.RoundNumber)
+            .ThenBy(m => m.MatchNumber)
+            .ToListAsync();
+
+        var result = matches
+            .Select(m => new FinalMatchDto
+            {
+                Id = m.Id,
+                FinalPhaseId = m.FinalPhaseId,
+                RoundNumber = m.RoundNumber,
+                MatchNumber = m.MatchNumber,
+
+                CourtId = m.CourtId,
+                CourtName = m.Court?.Name,
+                StartTime = m.StartTime,
+                EndTime = m.EndTime,
+
+                Team1RegistrationId = m.Team1RegistrationId,
+                Team1Name = m.Team1?.TeamName,
+
+                Team2RegistrationId = m.Team2RegistrationId,
+                Team2Name = m.Team2?.TeamName,
+
+                Team1Score = m.Team1Score,
+                Team2Score = m.Team2Score,
+
+                Status = m.Status,
+
+                Team1SourceMatchId = m.Team1SourceMatchId,
+                Team2SourceMatchId = m.Team2SourceMatchId
+            })
+            .ToList();
+
+        return Ok(result);
+    }
+
+    // POST: /api/admin/tournaments/{tournamentId}/final-phases/{phaseId}/schedule
+    [HttpPost("{phaseId}/schedule")]
+    public async Task<ActionResult<List<FinalMatchDto>>> ScheduleFinalMatches(
+        int tournamentId,
+        int phaseId,
+        [FromServices] FinalMatchScheduler scheduler)
+    {
+        var phaseExists = await _db.FinalPhases
+            .AnyAsync(fp =>
+                fp.Id == phaseId &&
+                fp.TournamentId == tournamentId);
+
+        if (!phaseExists)
+            return NotFound("Final phase not found.");
+
+        var result = await scheduler.ScheduleAsync(
+            tournamentId,
+            phaseId);
+
+        if (!result.Success)
+            return BadRequest(result.ErrorMessage);
+
+        /*
+         * Salviamo tutto in una transazione.
+         *
+         * Se qualcosa va storto, nessuna modifica viene mantenuta.
+         */
+        await using var transaction =
+            await _db.Database.BeginTransactionAsync();
+
+        try
+        {
+            await _db.SaveChangesAsync();
+
+            await transaction.CommitAsync();
+        }
+        catch
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
+
+        /*
+         * Ricarichiamo le partite con i nomi delle squadre.
+         */
+        var matches = await _db.FinalMatches
+            .Where(m => m.FinalPhaseId == phaseId)
+            .Include(m => m.Team1)
+            .Include(m => m.Team2)
+            .Include(m => m.Court)
+            .OrderBy(m => m.RoundNumber)
+            .ThenBy(m => m.MatchNumber)
+            .ToListAsync();
+
+        var response = matches
+            .Select(m => new FinalMatchDto
+            {
+                Id = m.Id,
+                FinalPhaseId = m.FinalPhaseId,
+                RoundNumber = m.RoundNumber,
+                MatchNumber = m.MatchNumber,
+
+                CourtId = m.CourtId,
+                CourtName = m.Court?.Name,
+                StartTime = m.StartTime,
+                EndTime = m.EndTime,
+
+                Team1RegistrationId = m.Team1RegistrationId,
+                Team1Name = m.Team1?.TeamName,
+
+                Team2RegistrationId = m.Team2RegistrationId,
+                Team2Name = m.Team2?.TeamName,
+
+                Team1Score = m.Team1Score,
+                Team2Score = m.Team2Score,
+
+                Status = m.Status,
+
+                Team1SourceMatchId = m.Team1SourceMatchId,
+                Team2SourceMatchId = m.Team2SourceMatchId
+            })
+            .ToList();
+
+        return Ok(response);
+    }
+
+    // PUT: /api/admin/tournaments/{tournamentId}/final-phases/{phaseId}/matches/{matchId}/schedule
+    [HttpPut("{phaseId}/matches/{matchId}/schedule")]
+    public async Task<ActionResult<FinalMatchDto>> ScheduleFinalMatchManually(
+        int tournamentId,
+        int phaseId,
+        int matchId,
+        FinalMatchScheduleRequest request)
+    {
+        var match = await _db.FinalMatches
+            .FirstOrDefaultAsync(m =>
+                m.Id == matchId &&
+                m.FinalPhaseId == phaseId &&
+                m.FinalPhase.TournamentId == tournamentId);
+
+        if (match == null)
+            return NotFound("Final match not found.");
+
+        var court = await _db.Courts
+            .Include(c => c.Availabilities)
+            .FirstOrDefaultAsync(c =>
+                c.Id == request.CourtId &&
+                c.EventId == match.FinalPhase.Tournament.EventId &&
+                c.IsActive);
+
+        if (court == null)
+        {
+            return BadRequest(
+                "The selected court does not belong to the tournament event " +
+                "or is not active.");
+        }
+
+        var tournamentCourtExists = await _db.TournamentCourts
+            .AnyAsync(tc =>
+                tc.TournamentId == tournamentId &&
+                tc.CourtId == request.CourtId);
+
+        if (!tournamentCourtExists)
+        {
+            return BadRequest(
+                "The selected court is not assigned to this tournament.");
+        }
+
+        var startTime = request.StartTime;
+        var endTime = startTime.AddMinutes(20);
+
+        /*
+         * La partita deve rientrare completamente
+         * in una delle disponibilità del campo.
+         */
+        var insideAvailability = court.Availabilities.Any(a =>
+        {
+            var availabilityStart =
+                startTime.Date.Add(a.StartTime);
+
+            var availabilityEnd =
+                startTime.Date.Add(a.EndTime);
+
+            return startTime >= availabilityStart &&
+                   endTime <= availabilityEnd;
+        });
+
+        if (!insideAvailability)
+        {
+            return BadRequest(
+                "The selected time is outside the court availability.");
+        }
+
+        /*
+         * Controlliamo conflitti con le partite dei gironi.
+         */
+        var groupMatchOverlap = await _db.Matches
+            .AnyAsync(m =>
+                m.TournamentId == tournamentId &&
+                m.CourtId == request.CourtId &&
+                startTime < m.EndTime &&
+                endTime > m.StartTime);
+
+        if (groupMatchOverlap)
+        {
+            return BadRequest(
+                "The selected court and time overlap with another match.");
+        }
+
+        /*
+         * Controlliamo conflitti con le altre finali.
+         */
+        var finalMatchOverlap = await _db.FinalMatches
+            .AnyAsync(m =>
+                m.FinalPhase.TournamentId == tournamentId &&
+                m.Id != matchId &&
+                m.CourtId == request.CourtId &&
+                m.StartTime.HasValue &&
+                m.EndTime.HasValue &&
+                startTime < m.EndTime.Value &&
+                endTime > m.StartTime.Value);
+
+        if (finalMatchOverlap)
+        {
+            return BadRequest(
+                "The selected court and time overlap with another final match.");
+        }
+
+        /*
+         * Controlliamo anche le dipendenze del tabellone.
+         *
+         * Una semifinale non può essere prima della fine
+         * dei quarti che la alimentano.
+         */
+        var sourceMatchIds = new List<int>();
+
+        if (match.Team1SourceMatchId.HasValue)
+            sourceMatchIds.Add(match.Team1SourceMatchId.Value);
+
+        if (match.Team2SourceMatchId.HasValue)
+            sourceMatchIds.Add(match.Team2SourceMatchId.Value);
+
+        if (sourceMatchIds.Count > 0)
+        {
+            var sourceMatches = await _db.FinalMatches
+                .Where(m => sourceMatchIds.Contains(m.Id))
+                .ToListAsync();
+
+            if (sourceMatches.Any(m =>
+        !m.EndTime.HasValue))
+            {
+                return BadRequest(
+                    "The source matches have not been scheduled yet.");
+            }
+
+            var latestSourceEnd = sourceMatches
+                .Max(m => m.EndTime!.Value);
+
+            if (startTime < latestSourceEnd)
+            {
+                return BadRequest(
+                    "This match cannot start before its source matches have ended.");
+            }
+
+            /*
+             * Controlliamo anche le partite successive che dipendono
+             * direttamente da questa partita.
+             */
+            var nextMatches = await _db.FinalMatches
+                .Where(m =>
+                    m.FinalPhaseId == phaseId &&
+                    (
+                        m.Team1SourceMatchId == match.Id ||
+                        m.Team2SourceMatchId == match.Id
+                    ))
+                .ToListAsync();
+
+            foreach (var nextMatch in nextMatches)
+            {
+                if (!nextMatch.StartTime.HasValue)
+                    continue;
+
+                if (nextMatch.StartTime.Value < endTime)
+                {
+                    return BadRequest(
+                        "This match cannot be moved because a following " +
+                        "match would start before it ends.");
+                }
+            }
+        }
+
+        /*
+         * Controlliamo anche che una partita non venga
+         * programmata prima dell'inizio del torneo.
+         */
+        var tournament = await _db.Tournaments
+            .Include(t => t.Event)
+            .FirstAsync(t => t.Id == tournamentId);
+
+        var tournamentStart =
+            tournament.Event.Date.Date
+                .Add(tournament.StartTime);
+
+        if (startTime < tournamentStart)
+        {
+            return BadRequest(
+                "The match cannot be scheduled before the tournament starts.");
+        }
+
+        match.CourtId = request.CourtId;
+        match.StartTime = startTime;
+        match.EndTime = endTime;
+
+        await _db.SaveChangesAsync();
+
+        await _db.Entry(match)
+            .Reference(m => m.Team1)
+            .LoadAsync();
+
+        await _db.Entry(match)
+            .Reference(m => m.Team2)
+            .LoadAsync();
+
+        await _db.Entry(match)
+            .Reference(m => m.Court)
+            .LoadAsync();
+
+        return Ok(new FinalMatchDto
+        {
+            Id = match.Id,
+            FinalPhaseId = match.FinalPhaseId,
+            RoundNumber = match.RoundNumber,
+            MatchNumber = match.MatchNumber,
+
+            CourtId = match.CourtId,
+            CourtName = match.Court?.Name,
+            StartTime = match.StartTime,
+            EndTime = match.EndTime,
+
+            Team1RegistrationId = match.Team1RegistrationId,
+            Team1Name = match.Team1?.TeamName,
+
+            Team2RegistrationId = match.Team2RegistrationId,
+            Team2Name = match.Team2?.TeamName,
+
+            Team1Score = match.Team1Score,
+            Team2Score = match.Team2Score,
+
+            Status = match.Status,
+
+            Team1SourceMatchId = match.Team1SourceMatchId,
+            Team2SourceMatchId = match.Team2SourceMatchId
+        });
+    }
 }

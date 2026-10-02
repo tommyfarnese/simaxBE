@@ -55,12 +55,21 @@ public class AdminMatchesController : ControllerBase
             });
         }
 
-        var courts = await _context.TournamentCourts
-            .Where(tc => tc.TournamentId == tournamentId)
-            .Select(tc => tc.Court)
-            .Include(c => c.Availabilities)
-            .Where(c => c.IsActive)
-            .ToListAsync();
+        var courts = await _context.Courts
+                                .Where(c =>
+                                    c.IsActive &&
+                                    c.TournamentCourts.Any(tc =>
+                                        tc.TournamentId == tournamentId))
+                                .Include(c => c.Availabilities)
+                                .ToListAsync();
+
+        if (courts.Count == 0)
+        {
+            return BadRequest(new
+            {
+                message = "Non ci sono campi configurati per questo torneo."
+            });
+        }
 
         if (courts.Count == 0)
         {
@@ -135,7 +144,21 @@ public class AdminMatchesController : ControllerBase
             {
                 message = "Partite generate correttamente.",
                 count = matches.Count,
-                matches
+                matches = matches.Select(m => new
+                {
+                    m.Id,
+                    m.TournamentId,
+                    m.PoolId,
+                    m.CourtId,
+                    m.MatchNumber,
+                    m.StartTime,
+                    m.EndTime,
+                    m.Team1RegistrationId,
+                    m.Team2RegistrationId,
+                    m.Team1Score,
+                    m.Team2Score,
+                    m.Status
+                }).ToList()
             });
         }
         catch

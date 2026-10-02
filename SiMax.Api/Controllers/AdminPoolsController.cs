@@ -32,9 +32,28 @@ public class AdminPoolsController : ControllerBase
 
         var pools = await _context.Pools
             .Where(p => p.TournamentId == tournamentId)
-            .Include(p => p.Entries)
-                .ThenInclude(pe => pe.Registration)
             .OrderBy(p => p.SortOrder)
+            .Select(p => new
+            {
+                p.Id,
+                p.TournamentId,
+                p.Name,
+                p.SortOrder,
+                Entries = p.Entries
+                    .OrderBy(entry => entry.Position)
+                    .Select(entry => new
+                    {
+                        entry.Id,
+                        entry.RegistrationId,
+                        entry.Position,
+                        TeamName = entry.Registration.TeamName,
+                        entry.Registration.Player1FirstName,
+                        entry.Registration.Player1LastName,
+                        entry.Registration.Player2FirstName,
+                        entry.Registration.Player2LastName
+                    })
+                    .ToList()
+            })
             .ToListAsync();
 
         return Ok(pools);

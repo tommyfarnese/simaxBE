@@ -12,6 +12,8 @@ public class FinalMatchDto
 
     public int? CourtId { get; set; }
 
+    public string? CourtName { get; set; }
+
     public DateTime? StartTime { get; set; }
 
     public DateTime? EndTime { get; set; }
@@ -29,4 +31,8 @@ public class FinalMatchDto
     public int? Team1SourceMatchId { get; set; }
 
     public int? Team2SourceMatchId { get; set; }
+
+    public string? Team1Name { get; set; }
+
+    public string? Team2Name { get; set; }
 }

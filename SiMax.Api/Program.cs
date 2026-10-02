@@ -80,6 +80,8 @@ builder.Services.AddScoped<RoundRobinGenerator>();
 builder.Services.AddScoped<MatchScheduler>();
 builder.Services.AddScoped<FinalPhaseQualificationService>();
 builder.Services.AddScoped<FinalBracketGenerator>();
+builder.Services.AddScoped<MatchScheduler>();
+builder.Services.AddScoped<FinalMatchScheduler>();
 
 var app = builder.Build();
 
