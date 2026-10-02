@@ -2,8 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SiMax.Api.Data;
+using SiMax.Api.DTOs;
 using SiMax.Api.DTOs.Admin;
 using SiMax.Api.Models;
+using SiMax.Api.Services;
+using System.Text.Json;
 
 namespace SiMax.Api.Controllers;
 
@@ -13,10 +16,12 @@ namespace SiMax.Api.Controllers;
 public class AdminEventsController : ControllerBase
 {
     private readonly SiMaxDbContext _context;
+    private readonly EventsJsonService _eventsJsonService;
 
-    public AdminEventsController(SiMaxDbContext context)
+    public AdminEventsController(SiMaxDbContext context, EventsJsonService eventsJsonService)
     {
         _context = context;
+        _eventsJsonService = eventsJsonService;
     }
 
     [HttpGet]
@@ -59,6 +64,8 @@ public class AdminEventsController : ControllerBase
         _context.Events.Add(newEvent);
 
         await _context.SaveChangesAsync();
+
+        await _eventsJsonService.RefreshAsync();
 
         var result = new AdminEventDto
         {
@@ -105,6 +112,8 @@ public class AdminEventsController : ControllerBase
 
         await _context.SaveChangesAsync();
 
+        await _eventsJsonService.RefreshAsync();
+
         var result = new AdminEventDto
         {
             Id = existingEvent.Id,
@@ -138,6 +147,8 @@ public class AdminEventsController : ControllerBase
         existingEvent.IsActive = isActive;
 
         await _context.SaveChangesAsync();
+
+        await _eventsJsonService.RefreshAsync();
 
         return Ok(new
         {
@@ -200,6 +211,8 @@ public class AdminEventsController : ControllerBase
 
         await _context.SaveChangesAsync();
 
+        await _eventsJsonService.RefreshAsync();
+
         return Ok(new AdminEventDto
         {
             Id = newEvent.Id,
@@ -211,4 +224,6 @@ public class AdminEventsController : ControllerBase
             IsActive = newEvent.IsActive
         });
     }
+
+    
 }

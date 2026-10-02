@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SiMax.Api.Data;
 using SiMax.Api.DTOs.Admin;
 using SiMax.Api.Models;
+using SiMax.Api.Services;
 
 namespace SiMax.Api.Controllers;
 
@@ -13,10 +14,12 @@ namespace SiMax.Api.Controllers;
 public class AdminTournamentsController : ControllerBase
 {
     private readonly SiMaxDbContext _context;
+    private readonly EventsJsonService _eventsJsonService;
 
-    public AdminTournamentsController(SiMaxDbContext context)
+    public AdminTournamentsController(SiMaxDbContext context, EventsJsonService eventsJsonService)
     {
         _context = context;
+        _eventsJsonService = eventsJsonService;
     }
 
     [HttpGet]
@@ -100,6 +103,8 @@ public class AdminTournamentsController : ControllerBase
 
         await _context.SaveChangesAsync();
 
+        await _eventsJsonService.RefreshAsync();
+
         var result = new AdminTournamentDto
         {
             Id = tournament.Id,
@@ -181,6 +186,8 @@ public class AdminTournamentsController : ControllerBase
 
         await _context.SaveChangesAsync();
 
+        await _eventsJsonService.RefreshAsync();
+
         var result = new AdminTournamentDto
         {
             Id = tournament.Id,
@@ -221,6 +228,8 @@ public class AdminTournamentsController : ControllerBase
         tournament.IsActive = isActive;
 
         await _context.SaveChangesAsync();
+
+        await _eventsJsonService.RefreshAsync();
 
         return Ok(new
         {
@@ -270,6 +279,8 @@ public class AdminTournamentsController : ControllerBase
         _context.Tournaments.Add(newTournament);
 
         await _context.SaveChangesAsync();
+
+        await _eventsJsonService.RefreshAsync();
 
         return Ok(new AdminTournamentDto
         {

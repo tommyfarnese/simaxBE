@@ -46,7 +46,9 @@ public class GitHubService
             url);
 
         getRequest.Headers.Authorization =
-            new AuthenticationHeaderValue("Bearer", token);
+    new AuthenticationHeaderValue("Bearer", token);
+
+        getRequest.Headers.UserAgent.ParseAdd("SiMaxBE/1.0");
 
         getRequest.Headers.Accept.Add(
             new MediaTypeWithQualityHeaderValue(
@@ -56,10 +58,13 @@ public class GitHubService
             "X-GitHub-Api-Version",
             "2026-03-10");
 
-        var getResponse =
-            await _httpClient.SendAsync(getRequest);
+        var getResponse = await _httpClient.SendAsync(getRequest);
 
-        getResponse.EnsureSuccessStatusCode();
+        if (!getResponse.IsSuccessStatusCode)
+        {
+            throw new Exception(
+                $"GitHub GET error {(int)getResponse.StatusCode}");
+        }
 
         var existingFile =
             await getResponse.Content.ReadFromJsonAsync<JsonElement>();
@@ -79,11 +84,13 @@ public class GitHubService
         };
 
         using var putRequest = new HttpRequestMessage(
-            HttpMethod.Put,
-            url);
+    HttpMethod.Put,
+    url);
 
         putRequest.Headers.Authorization =
             new AuthenticationHeaderValue("Bearer", token);
+
+        putRequest.Headers.UserAgent.ParseAdd("SiMaxBE/1.0");
 
         putRequest.Headers.Accept.Add(
             new MediaTypeWithQualityHeaderValue(
